@@ -20,7 +20,7 @@ class MoviesLand extends StatelessWidget {
         //primaryColor: Colors.white,
         textTheme: GoogleFonts.montserratTextTheme(ThemeData.dark().textTheme),
       ),
-      home: const SignUpView(),
+      home: const LoginView(),
     );
   }
 }

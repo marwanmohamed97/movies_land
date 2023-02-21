@@ -24,17 +24,19 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return TextFormField(
       obscureText: widget.isPassword!,
       decoration: InputDecoration(
-        focusColor: Colors.white,
-        iconColor: Colors.white,
+        //focusColor: Colors.white,
+        //iconColor: Colors.white,
         hintText: widget.hintText,
         filled: true,
         suffixIcon: IconButton(
           onPressed: () {
             setState(() {});
-            if (widget.isPassword!) {
-              widget.isPassword = false;
-            } else {
-              widget.isPassword = true;
+            if (widget.hintText != 'Email') {
+              if (widget.isPassword!) {
+                widget.isPassword = false;
+              } else {
+                widget.isPassword = true;
+              }
             }
           },
           icon: isFieldText(),
@@ -60,11 +62,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   Widget isFieldText() {
-    if (widget.hintText != 'Password') {
+    if (widget.hintText == 'Email') {
       return const Text('');
     } else {
       return Icon(
-        widget.isPassword == true ? Icons.key : widget.suffixIcon,
+        widget.isPassword == true ? Icons.visibility_off : Icons.visibility,
         color: Colors.white,
       );
     }

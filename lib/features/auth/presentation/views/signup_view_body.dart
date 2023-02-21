@@ -36,6 +36,15 @@ class SignUpViewBody extends StatelessWidget {
             isPassword: true,
           ),
           const SizedBox(
+            height: 16,
+          ),
+          CustomTextField(
+            hintText: 'Confirm Password',
+            prefixIcon: Icons.lock,
+            suffixIcon: Icons.remove_red_eye,
+            isPassword: true,
+          ),
+          const SizedBox(
             height: 8,
           ),
           SizedBox(
