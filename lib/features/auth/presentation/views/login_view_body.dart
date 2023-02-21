@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movies_land/constats.dart';
+import 'package:movies_land/core/ulits/app_router.dart';
 import 'package:movies_land/core/ulits/styles.dart';
 import 'package:movies_land/core/widgets/custom_button.dart';
 import 'package:movies_land/core/widgets/custom_general_view.dart';
@@ -39,10 +41,15 @@ class LoginViewBody extends StatelessWidget {
           ),
           SizedBox(
             width: double.infinity,
-            child: Text(
-              'Forget Password',
-              style: Styles.textStyle16.copyWith(color: kPrimaryColor),
-              textAlign: TextAlign.end,
+            child: GestureDetector(
+              onTap: () {
+                GoRouter.of(context).push(AppRouter.forgetPassword);
+              },
+              child: Text(
+                'Forget Password',
+                style: Styles.textStyle16.copyWith(color: kPrimaryColor),
+                textAlign: TextAlign.end,
+              ),
             ),
           ),
           const SizedBox(
@@ -63,9 +70,14 @@ class LoginViewBody extends StatelessWidget {
                 'New to movies land?',
                 style: Styles.textStyle16,
               ),
-              Text(
-                ' Sign up',
-                style: Styles.textStyle16.copyWith(color: kPrimaryColor),
+              GestureDetector(
+                onTap: () {
+                  GoRouter.of(context).push(AppRouter.signUpView);
+                },
+                child: Text(
+                  ' Sign up',
+                  style: Styles.textStyle16.copyWith(color: kPrimaryColor),
+                ),
               )
             ],
           ),

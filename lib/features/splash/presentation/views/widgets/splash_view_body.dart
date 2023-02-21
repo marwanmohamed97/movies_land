@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:movies_land/core/ulits/app_router.dart';
 import 'package:movies_land/core/widgets/custom_general_view.dart';
 
 import '../../../../../constats.dart';
@@ -11,29 +13,36 @@ class SplashViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomGeneralView(
+      isscrollable: false,
       widget: Column(
-        children: const [
-          Text(
+        children: [
+          const Text(
             'Bingeworthy TV, hit movies, live sports & so much more',
             style: Styles.textStyle34,
             textAlign: TextAlign.center,
           ),
-          SizedBox(
+          const SizedBox(
             height: 56,
           ),
-          CustomButton(
+          const CustomButton(
             backgroundColor: kButtonColor,
             textColor: Colors.black,
             buttonContent: 'GET STARTED',
           ),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
-          Text(
-            'Skip',
-            style: Styles.textStyle16,
+          GestureDetector(
+            onTap: () {
+              GoRouter.of(context).push(AppRouter.logInView);
+              //GoRouter.of(context).go('l');
+            },
+            child: const Text(
+              'Skip',
+              style: Styles.textStyle16,
+            ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           )
         ],

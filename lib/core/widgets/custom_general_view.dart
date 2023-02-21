@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 
 class CustomGeneralView extends StatelessWidget {
   const CustomGeneralView(
-      {Key? key, required this.widget, this.backgroundColor = false})
+      {Key? key,
+      required this.widget,
+      this.backgroundColor = false,
+      this.isscrollable = true})
       : super(key: key);
 
   final Widget widget;
   final bool backgroundColor;
+  final bool isscrollable;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +19,9 @@ class CustomGeneralView extends StatelessWidget {
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
+            physics: isscrollable == true
+                ? const BouncingScrollPhysics()
+                : const NeverScrollableScrollPhysics(),
             child: Stack(
               children: [
                 Image.asset('assets/images/splash_background.png'),
