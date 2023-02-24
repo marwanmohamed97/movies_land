@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movies_land/constats.dart';
 import 'package:movies_land/core/ulits/app_router.dart';
 import 'package:movies_land/features/auth/presentation/views/login_view.dart';
 import 'package:movies_land/features/auth/presentation/views/signup_view.dart';
@@ -17,7 +18,7 @@ class MoviesLand extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
-        backgroundColor: Colors.black,
+        //textTheme: TextTheme()
         textTheme: GoogleFonts.montserratTextTheme(ThemeData.dark().textTheme),
       ),
       routerConfig: AppRouter.router,

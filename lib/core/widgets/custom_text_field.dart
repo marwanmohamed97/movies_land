@@ -22,6 +22,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofocus: true,
       obscureText: widget.isPassword!,
       decoration: InputDecoration(
         //focusColor: Colors.white,

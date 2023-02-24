@@ -43,7 +43,7 @@ class LoginViewBody extends StatelessWidget {
             width: double.infinity,
             child: GestureDetector(
               onTap: () {
-                GoRouter.of(context).push(AppRouter.forgetPassword);
+                GoRouter.of(context).push(AppRouter.forgetPasswordView);
               },
               child: Text(
                 'Forget Password',
