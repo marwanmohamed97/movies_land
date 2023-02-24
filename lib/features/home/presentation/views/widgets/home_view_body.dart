@@ -1,86 +1,104 @@
 import 'package:flutter/material.dart';
-import 'package:movies_land/constats.dart';
-import 'package:movies_land/core/ulits/styles.dart';
-import 'package:movies_land/core/widgets/custom_button.dart';
-import 'package:movies_land/features/home/presentation/views/widgets/custom_search_button.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:movies_land/features/search/presentation/views/search_view.dart';
+import 'package:movies_land/features/tv/data/presentaion/views/tv_view.dart';
+import 'home_movie_view.dart';
 
-import 'custom_app_bar.dart';
-import 'featured_box.dart';
-import 'featured_section.dart';
-
-class HomeViewBody extends StatelessWidget {
+class HomeViewBody extends StatefulWidget {
   const HomeViewBody({Key? key}) : super(key: key);
 
   @override
+  State<HomeViewBody> createState() => _HomeViewBodyState();
+}
+
+class _HomeViewBodyState extends State<HomeViewBody> {
+  final widgetsOptions = const [
+    HomeMovieView(),
+    TvView(),
+    HomeMovieView(),
+    SearchView(),
+  ];
+  final listOfIcons = [
+    FontAwesomeIcons.houseChimneyWindow,
+    FontAwesomeIcons.youtube,
+    FontAwesomeIcons.download,
+    FontAwesomeIcons.circleUser,
+  ];
+  int currentIndex = 0;
+  @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: kBackgroundColor,
-      body: SafeArea(
-          child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Column(
-                children: const [
-                  SizedBox(
-                    height: 32,
-                  ),
-                  CustomAppBar(),
-                  SizedBox(
-                    height: 38,
-                  ),
-                  CustomSearchButton(),
-                  SizedBox(
-                    height: 24,
-                  ),
-                  FeaturedBox(),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      backgroundColor: Colors.black,
+      bottomNavigationBar: SizedBox(
+        width: double.infinity,
+        height: 108,
+        child: ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: 4,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return InkWell(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () {
+                setState(() {
+                  currentIndex = index;
+                });
+              },
+              child: Stack(
+                alignment: Alignment.center,
                 children: [
-                  const SizedBox(
-                    height: 24,
+                  Center(
+                    child: AnimatedContainer(
+                      curve: Curves.fastLinearToSlowEaseIn,
+                      duration: const Duration(seconds: 1),
+                      height: 30,
+                      width: 30,
+                      decoration: index == currentIndex
+                          ? BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color:
+                                      const Color(0xffB9FB5E).withOpacity(0.15),
+                                  spreadRadius: 18,
+                                  blurRadius: 30,
+                                  blurStyle: BlurStyle.normal,
+                                )
+                              ],
+                            )
+                          : null,
+                    ),
                   ),
-                  const FeaturedSection(),
-                  const SizedBox(
-                    height: 24,
+                  Positioned(
+                    bottom: 30,
+                    child: AnimatedContainer(
+                      curve: Curves.fastLinearToSlowEaseIn,
+                      duration: const Duration(seconds: 5),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: index == currentIndex ? 2 : 0,
+                      ),
+                    ),
                   ),
-                  Text(
-                    'Movies Land Picks',
-                    style: Styles.textStyle16
-                        .copyWith(fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  const FeaturedSection(
-                    width: 112,
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Text(
-                    'Just Added',
-                    style: Styles.textStyle16
-                        .copyWith(fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  const FeaturedSection(
-                    width: 112,
+                  Container(
+                    width: screenWidth / 4,
+                    alignment: Alignment.center,
+                    child: Icon(
+                      listOfIcons[index],
+                      size: 20,
+                      color: Colors.white,
+                    ),
                   ),
                 ],
               ),
-            ),
-          ],
+            );
+          },
         ),
-      )),
+      ),
+      body: SafeArea(
+        child: widgetsOptions.elementAt(currentIndex),
+      ),
     );
   }
 }

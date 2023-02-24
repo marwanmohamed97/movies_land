@@ -21,7 +21,7 @@ class FeaturedSection extends StatelessWidget {
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.only(right: 16),
-              child: Container(
+              child: SizedBox(
                 width: width,
                 child: Image.asset(
                   'assets/images/featured_image.png',
