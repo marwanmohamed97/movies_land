@@ -54,7 +54,7 @@ class SignUpViewBody extends StatelessWidget {
           ),
           const CustomButton(
             textColor: Colors.black,
-            buttonContent: 'LOGIN',
+            buttonContent: Text('LOGIN'),
             backgroundColor: kPrimaryColor,
           ),
           const SizedBox(

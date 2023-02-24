@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:movies_land/features/downloads/presentaion/views/downloads_view.dart';
+import 'package:movies_land/features/profile/presentation/views/profile_view.dart';
 import 'package:movies_land/features/search/presentation/views/search_view.dart';
 import 'package:movies_land/features/tv/data/presentaion/views/tv_view.dart';
 import 'home_movie_view.dart';
@@ -15,8 +17,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   final widgetsOptions = const [
     HomeMovieView(),
     TvView(),
-    HomeMovieView(),
-    SearchView(),
+    DownloadsView(),
+    ProfileView(),
   ];
   final listOfIcons = [
     FontAwesomeIcons.houseChimneyWindow,
