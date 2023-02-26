@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:movies_land/core/ulits/api_service.dart';
+import 'package:movies_land/features/home/data/models/movie/movie.details.dart';
 import 'package:movies_land/features/home/data/models/movies_land_model.dart';
 import 'package:movies_land/core/errors/failures.dart';
 import 'package:either_dart/src/either.dart';
@@ -19,6 +20,26 @@ class HomeRepoImpl extends HomeRepo {
       for (var item in data['results']) {
         movies.add(MoviesLandModel.fromJson(item));
       }
+      return Right(movies);
+    } catch (e) {
+      if (e is DioError) {
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<MovieDetailModel>>> fetchMovieDetails(
+      {required int movieId}) async {
+    try {
+      var data = await apiService.get(
+        endPoint: 'movie/$movieId?api_key=$apiKey',
+      );
+      List<MovieDetailModel> movies = [];
+
+      movies.add(MovieDetailModel.fromJson(data));
+
       return Right(movies);
     } catch (e) {
       if (e is DioError) {

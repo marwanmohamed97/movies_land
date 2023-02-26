@@ -4,7 +4,7 @@ import '../../../../../core/ulits/styles.dart';
 import 'custom_app_bar.dart';
 import 'custom_search_button.dart';
 import 'featured_box.dart';
-import 'featured_section.dart';
+import 'custom_movie_item.dart';
 
 class HomeMovieView extends StatelessWidget {
   const HomeMovieView({Key? key}) : super(key: key);
@@ -42,7 +42,7 @@ class HomeMovieView extends StatelessWidget {
                 const SizedBox(
                   height: 24,
                 ),
-                const FeaturedSection(),
+                const CustomMovieItem(),
                 const SizedBox(
                   height: 24,
                 ),
@@ -54,9 +54,9 @@ class HomeMovieView extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                const FeaturedSection(
-                  width: 112,
-                ),
+                const CustomMovieItem(
+                    //width: 112,
+                    ),
                 const SizedBox(
                   height: 24,
                 ),
@@ -68,9 +68,9 @@ class HomeMovieView extends StatelessWidget {
                 const SizedBox(
                   height: 16,
                 ),
-                const FeaturedSection(
-                  width: 112,
-                ),
+                const CustomMovieItem(
+                    //width: 112,
+                    ),
               ],
             ),
           ),

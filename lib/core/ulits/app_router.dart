@@ -1,8 +1,14 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movies_land/core/ulits/service_locator.dart';
 import 'package:movies_land/features/auth/presentation/views/forget_password_view.dart';
 import 'package:movies_land/features/auth/presentation/views/login_view.dart';
 import 'package:movies_land/features/auth/presentation/views/signup_view.dart';
+import 'package:movies_land/features/home/data/models/movie/movie.details.dart';
+import 'package:movies_land/features/home/data/models/movies_land_model.dart';
+import 'package:movies_land/features/home/data/repos/home_repo_impl.dart';
 import 'package:movies_land/features/home/presentation/views/home_view.dart';
+import 'package:movies_land/features/home/presentation/views/manager/movies_details_cubit/movies_details_cubit.dart';
 import 'package:movies_land/features/home/presentation/views/widgets/movie_details_view.dart';
 import 'package:movies_land/features/search/presentation/views/search_view.dart';
 import 'package:movies_land/features/splash/presentation/views/splash_view.dart';
@@ -37,7 +43,12 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: movieDetailsView,
-        builder: (context, state) => const MovieDetailsView(),
+        builder: (context, state) {
+          return BlocProvider(
+            create: (context) => MoviesDetailsCubit(getIt.get<HomeRepoImpl>()),
+            child: MovieDetailsView(movie: state.extra as MoviesLandModel),
+          );
+        },
       ),
     ],
   );

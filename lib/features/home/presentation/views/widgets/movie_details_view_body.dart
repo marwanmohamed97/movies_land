@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies_land/constats.dart';
-import 'package:movies_land/core/ulits/styles.dart';
-import 'package:movies_land/core/widgets/custom_button.dart';
+import 'package:movies_land/features/home/data/models/movie/movie.details.dart';
 import 'package:movies_land/features/home/presentation/views/widgets/play_movie_section.dart';
 import 'package:movies_land/features/home/presentation/views/widgets/season_section.dart';
-
-import '../../../../../core/widgets/custom_drop_down_button.dart';
 import 'episodes_of_movie.dart';
 import 'over_view_movie.dart';
 
-class MovieDetailsViewBody extends StatelessWidget {
-  const MovieDetailsViewBody({Key? key}) : super(key: key);
+class MovieDetailsViewBody extends StatefulWidget {
+  const MovieDetailsViewBody({
+    Key? key,
+    required this.movie,
+  }) : super(key: key);
 
+  final MovieDetailModel movie;
+
+  @override
+  State<MovieDetailsViewBody> createState() => _MovieDetailsViewBodyState();
+}
+
+class _MovieDetailsViewBodyState extends State<MovieDetailsViewBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +27,7 @@ class MovieDetailsViewBody extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            Image.asset('assets/images/movie_background.png'),
+            Image.network(imageUrlMaker(imageUrl: widget.movie.backdropPath!)),
             SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Stack(
@@ -76,14 +83,13 @@ class MovieDetailsViewBody extends StatelessWidget {
                             ),
                             child: const Icon(
                               Icons.arrow_back_ios_new_rounded,
-                              //color: Colors.black,
                             ),
                           ),
                         ),
                         const SizedBox(
                           height: 205,
                         ),
-                        const OverViewMovie(),
+                        OverViewMovie(movies: widget.movie),
                         const SizedBox(
                           height: 32,
                         ),

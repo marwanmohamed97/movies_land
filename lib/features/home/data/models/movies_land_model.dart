@@ -46,7 +46,7 @@ class MoviesLandModel extends Equatable {
       overview: json['overview'] as String?,
       posterPath: json['poster_path'] as String?,
       mediaType: json['media_type'] as String?,
-      genreIds: json['genre_ids'] as List<int>?,
+      genreIds: (json['genre_ids'] as List<dynamic>?)?.cast<int>(),
       popularity: (json['popularity'] as num?)?.toDouble(),
       releaseDate: json['release_date'] as String?,
       video: json['video'] as bool?,

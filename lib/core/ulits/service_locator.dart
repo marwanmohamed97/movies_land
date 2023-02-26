@@ -5,7 +5,9 @@ import 'package:movies_land/features/home/data/repos/home_repo_impl.dart';
 
 final getIt = GetIt.instance;
 
-void setup() {
+void setupServiceLocator() {
   getIt.registerSingleton<ApiService>(ApiService(Dio()));
-  getIt.registerSingleton<HomeRepoImpl>(HomeRepoImpl(getIt.get<ApiService>()));
+  getIt.registerSingleton<HomeRepoImpl>(HomeRepoImpl(
+    getIt.get<ApiService>(),
+  ));
 }
