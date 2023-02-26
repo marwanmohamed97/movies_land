@@ -28,7 +28,8 @@ class ServerFailure extends Failure {
       // }
       // return ServerFailure('Unexpected Error, Please Try Again!');
       default:
-        return ServerFailure('Oops There Was An Error, Please Try Again!');
+        return ServerFailure(
+            'Oops There Was An Error, Please Try Again! $dioError');
     }
   }
 

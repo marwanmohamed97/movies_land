@@ -5,18 +5,17 @@ import 'package:movies_land/core/widgets/custom_error_view.dart';
 import 'package:movies_land/features/home/data/models/movie/movie.details.dart';
 import 'package:movies_land/features/home/data/models/movies_land_model.dart';
 import 'package:movies_land/features/home/data/repos/home_repo_impl.dart';
+import 'package:movies_land/features/home/presentation/views/manager/movie_trailer_cubit/movie_trailer_cubit.dart';
 import 'package:movies_land/features/home/presentation/views/manager/movies_details_cubit/movies_details_cubit.dart';
 import 'package:movies_land/features/home/presentation/views/widgets/movie_details_view_body.dart';
 
 class MovieDetailsView extends StatefulWidget {
   const MovieDetailsView({
     Key? key,
-    //required this.movieId,
     required this.movie,
   }) : super(key: key);
 
   final MoviesLandModel movie;
-  //final int movieId;
 
   @override
   State<MovieDetailsView> createState() => _MovieDetailsViewState();
@@ -28,6 +27,7 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
     BlocProvider.of<MoviesDetailsCubit>(context).fetchMovieDetails(
       movieId: widget.movie.id!,
     );
+
     super.initState();
   }
 
@@ -36,8 +36,12 @@ class _MovieDetailsViewState extends State<MovieDetailsView> {
     return BlocBuilder<MoviesDetailsCubit, MoviesDetailsState>(
       builder: (context, state) {
         if (state is MoviesDetailsSuccess) {
-          return MovieDetailsViewBody(
-            movie: state.movie[0],
+          return BlocProvider(
+            create: (context) => MovieTrailerCubit(getIt.get<HomeRepoImpl>())
+              ..fetchMovieTrailer(movieId: widget.movie.id!),
+            child: MovieDetailsViewBody(
+              movie: state.movie[0],
+            ),
           );
         } else if (state is MoviesDetailsFailure) {
           return CustomErrorView(errMessage: state.errMessage);

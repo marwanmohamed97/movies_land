@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:movies_land/core/ulits/api_service.dart';
 import 'package:movies_land/features/home/data/models/movie/movie.details.dart';
+import 'package:movies_land/features/home/data/models/movie/movie.trailer.dart';
 import 'package:movies_land/features/home/data/models/movies_land_model.dart';
 import 'package:movies_land/core/errors/failures.dart';
 import 'package:either_dart/src/either.dart';
 import 'package:movies_land/features/home/data/repos/home_repo.dart';
+import 'package:movies_land/features/home/presentation/views/manager/movie_trailer_cubit/movie_trailer_cubit.dart';
 
 class HomeRepoImpl extends HomeRepo {
   final ApiService apiService;
@@ -39,6 +41,26 @@ class HomeRepoImpl extends HomeRepo {
       List<MovieDetailModel> movies = [];
 
       movies.add(MovieDetailModel.fromJson(data));
+
+      return Right(movies);
+    } catch (e) {
+      if (e is DioError) {
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<MovieTrailerModel>>> fetchMovieTrailer(
+      {required int movieId}) async {
+    try {
+      var data = await apiService.get(
+        endPoint: 'movie/$movieId/videos?api_key=$apiKey',
+      );
+      List<MovieTrailerModel> movies = [];
+
+      movies.add(MovieTrailerModel.fromJson(data));
 
       return Right(movies);
     } catch (e) {

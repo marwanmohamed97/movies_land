@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies_land/constats.dart';
+import 'package:movies_land/core/widgets/custom_error_view.dart';
 import 'package:movies_land/features/home/data/models/movie/movie.details.dart';
+import 'package:movies_land/features/home/presentation/views/manager/movie_trailer_cubit/movie_trailer_cubit.dart';
 import 'package:movies_land/features/home/presentation/views/widgets/play_movie_section.dart';
 import 'package:movies_land/features/home/presentation/views/widgets/season_section.dart';
 import 'episodes_of_movie.dart';
@@ -20,6 +23,11 @@ class MovieDetailsViewBody extends StatefulWidget {
 }
 
 class _MovieDetailsViewBodyState extends State<MovieDetailsViewBody> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +101,23 @@ class _MovieDetailsViewBodyState extends State<MovieDetailsViewBody> {
                         const SizedBox(
                           height: 32,
                         ),
-                        const PlayMovieSection(),
+                        PlayMovieSection(),
+                        // BlocBuilder<MovieTrailerCubit, MovieTrailerState>(
+                        //   builder: (context, state) {
+                        //     if (state is MovieTrailerSuccess) {
+                        //       return PlayMovieSection(
+                        //         movie: state.movie[0],
+                        //       );
+                        //     } else if (state is MovieTrailerFailure) {
+                        //       return CustomErrorView(
+                        //           errMessage: state.errMessage);
+                        //     } else {
+                        //       return const Center(
+                        //         child: CircularProgressIndicator(),
+                        //       );
+                        //     }
+                        //   },
+                        // ),
                         const SizedBox(
                           height: 32,
                         ),

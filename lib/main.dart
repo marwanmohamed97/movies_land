@@ -9,6 +9,7 @@ import 'package:movies_land/core/ulits/service_locator.dart';
 import 'package:movies_land/features/auth/presentation/views/login_view.dart';
 import 'package:movies_land/features/auth/presentation/views/signup_view.dart';
 import 'package:movies_land/features/home/data/repos/home_repo_impl.dart';
+import 'package:movies_land/features/home/presentation/views/manager/movie_trailer_cubit/movie_trailer_cubit.dart';
 import 'package:movies_land/features/home/presentation/views/manager/movies_land_cubit/movies_land_cubit.dart';
 import 'package:movies_land/features/splash/presentation/views/splash_view.dart';
 
