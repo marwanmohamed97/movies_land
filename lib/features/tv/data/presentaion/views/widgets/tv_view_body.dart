@@ -4,7 +4,7 @@ import 'package:movies_land/constats.dart';
 import 'package:movies_land/core/ulits/styles.dart';
 import 'package:movies_land/features/tv/data/presentaion/views/widgets/tv_live_options.dart';
 
-import '../../../../../home/presentation/views/widgets/episodes_of_movie.dart';
+import '../../../../../home/presentation/views/widgets/recommended_movies.dart';
 import '../../../../../home/presentation/views/widgets/over_view_movie.dart';
 import '../../../../../home/presentation/views/widgets/play_movie_section.dart';
 import '../../../../../home/presentation/views/widgets/season_section.dart';

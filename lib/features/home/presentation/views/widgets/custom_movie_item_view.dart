@@ -28,7 +28,7 @@ class CustomMovieItemView extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 GoRouter.of(context)
-                    .push(AppRouter.movieDetailsView, extra: movies[index]);
+                    .push(AppRouter.movieDetailsView, extra: movies[index].id);
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),

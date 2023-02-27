@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_land/core/widgets/custom_error_view.dart';
 import 'package:movies_land/features/home/data/models/movie/movie.trailer.dart';
-import 'package:movies_land/features/home/presentation/views/manager/movie_trailer_cubit/movie_trailer_cubit.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-
 import '../../../../../constats.dart';
 import '../../../../../core/ulits/styles.dart';
+import '../../manager/movie_trailer_cubit/movie_trailer_cubit.dart';
 
 class PlayMovieSection extends StatelessWidget {
   const PlayMovieSection({

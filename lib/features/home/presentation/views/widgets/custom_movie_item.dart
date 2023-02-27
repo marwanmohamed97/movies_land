@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:movies_land/core/ulits/app_router.dart';
 import 'package:movies_land/core/widgets/custom_error_view.dart';
-import 'package:movies_land/features/home/presentation/views/manager/movies_land_cubit/movies_land_cubit.dart';
-
+import '../../manager/movies_land_cubit/movies_land_cubit.dart';
 import 'custom_movie_item_view.dart';
 
 class CustomMovieItem extends StatelessWidget {

@@ -70,6 +70,9 @@ class OverViewMovie extends StatelessWidget {
         Text(
           movies.overview ?? '',
           style: Styles.textStyle14.copyWith(fontWeight: FontWeight.w400),
+          overflow: TextOverflow.ellipsis,
+          softWrap: true,
+          maxLines: 7,
         ),
       ],
     );

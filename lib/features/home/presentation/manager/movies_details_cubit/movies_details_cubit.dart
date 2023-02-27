@@ -1,9 +1,7 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_land/features/home/data/models/movie/movie.details.dart';
-
-import '../../../../data/repos/home_repo.dart';
-
+import '../../../data/repos/home_repo.dart';
 part 'movies_details_state.dart';
 
 class MoviesDetailsCubit extends Cubit<MoviesDetailsState> {
