@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies_land/constats.dart';
@@ -23,7 +24,10 @@ class ActorViewBody extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            Image.network(imageUrlMaker(imageUrl: actor.profilePath)),
+            CachedNetworkImage(
+              imageUrl: imageUrlMaker(imageUrl: actor.profilePath),
+              fit: BoxFit.fill,
+            ),
             SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Stack(
@@ -38,6 +42,8 @@ class ActorViewBody extends StatelessWidget {
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [
+                              Colors.transparent,
+                              Colors.transparent,
                               Colors.transparent,
                               Colors.transparent,
                               Colors.transparent,
@@ -83,7 +89,7 @@ class ActorViewBody extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(
-                              height: 300,
+                              height: 400,
                             ),
                             Text(
                               actor.originalName ?? '',

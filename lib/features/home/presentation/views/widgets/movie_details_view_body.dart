@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies_land/constats.dart';
@@ -21,7 +22,9 @@ class MovieDetailsViewBody extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            Image.network(imageUrlMaker(imageUrl: movie.backdropPath!)),
+            CachedNetworkImage(
+              imageUrl: imageUrlMaker(imageUrl: movie.backdropPath),
+            ),
             SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Stack(

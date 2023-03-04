@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../constats.dart';
@@ -32,8 +33,9 @@ class MoviesByActor extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                     child: AspectRatio(
                       aspectRatio: 2.6 / 3,
-                      child: Image.network(
-                        imageUrlMaker(imageUrl: movies[index].posterPath),
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            imageUrlMaker(imageUrl: movies[index].posterPath),
                         fit: BoxFit.fill,
                       ),
                     ),

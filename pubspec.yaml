@@ -42,6 +42,7 @@ dependencies:
   google_fonts: ^4.0.3
   dependencies:
   youtube_player_flutter: ^8.1.0
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_lints: ^2.0.0

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -35,12 +36,12 @@ class MovieActorsView extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: AspectRatio(
-                      aspectRatio: 2.6 / 3,
-                      child: Image.network(
-                        imageUrlMaker(imageUrl: actor[index].profilePath),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
+                        aspectRatio: 2.6 / 3,
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              imageUrlMaker(imageUrl: actor[index].profilePath),
+                          fit: BoxFit.fill,
+                        )),
                   ),
                   const SizedBox(
                     width: 16,

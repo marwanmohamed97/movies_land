@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies_land/constats.dart';
@@ -33,12 +34,12 @@ class CustomMovieItemView extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
                 child: AspectRatio(
-                  aspectRatio: 2.6 / 4,
-                  child: Image.network(
-                    imageUrlMaker(imageUrl: movies[index].posterPath!),
-                    fit: BoxFit.fill,
-                  ),
-                ),
+                    aspectRatio: 2.6 / 4,
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          imageUrlMaker(imageUrl: movies[index].posterPath!),
+                      fit: BoxFit.fill,
+                    )),
               ),
             ),
           );
