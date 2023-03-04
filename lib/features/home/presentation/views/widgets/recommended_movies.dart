@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_land/core/ulits/styles.dart';
+import 'package:movies_land/features/home/presentation/manager/movies_details_cubit/movies_details_cubit.dart';
 import 'package:movies_land/features/home/presentation/views/widgets/recommended_movies_body.dart';
 
 import '../../manager/recommended_movies_cubit/recommended_movies_cubit.dart';
 
-class RecommendedMovies extends StatefulWidget {
-  const RecommendedMovies({Key? key, required this.movieID}) : super(key: key);
+class RecommendedMovies extends StatelessWidget {
+  const RecommendedMovies({
+    Key? key,
+  }) : super(key: key);
 
-  final int movieID;
-  @override
-  State<RecommendedMovies> createState() => _RecommendedMoviesState();
-}
-
-class _RecommendedMoviesState extends State<RecommendedMovies> {
-  @override
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RecommendedMoviesCubit, RecommendedMoviesState>(
+      // buildWhen: (previous, current) => current is MoviesDetailsSuccess,
       builder: (context, state) {
         if (state is RecommendedMoviesSuccess) {
           return RecommendedMoviesBody(

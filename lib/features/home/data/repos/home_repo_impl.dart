@@ -33,6 +33,44 @@ class HomeRepoImpl extends HomeRepo {
   }
 
   @override
+  Future<Either<Failure, List<MoviesLandModel>>> fetchTopRatedMovies() async {
+    try {
+      var data = await apiService.get(
+        endPoint: 'movie/top_rated?api_key=$apiKey',
+      );
+      List<MoviesLandModel> movies = [];
+      for (var item in data['results']) {
+        movies.add(MoviesLandModel.fromJson(item));
+      }
+      return Right(movies);
+    } catch (e) {
+      if (e is DioError) {
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<MoviesLandModel>>> fetchNowPlayingMovies() async {
+    try {
+      var data = await apiService.get(
+        endPoint: 'movie/now_playing?api_key=$apiKey',
+      );
+      List<MoviesLandModel> movies = [];
+      for (var item in data['results']) {
+        movies.add(MoviesLandModel.fromJson(item));
+      }
+      return Right(movies);
+    } catch (e) {
+      if (e is DioError) {
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, List<MovieDetailModel>>> fetchMovieDetails(
       {required int movieId}) async {
     try {
@@ -128,6 +166,29 @@ class HomeRepoImpl extends HomeRepo {
 
       for (var item in data['cast']) {
         movies.add(MovieByActorModel.fromJson(item));
+      }
+
+      return Right(movies);
+    } catch (e) {
+      if (e is DioError) {
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<MoviesLandModel>>> fetchSearchMovie(
+      {required String movieName}) async {
+    try {
+      var data = await apiService.get(
+        endPoint:
+            'search/movie?api_key=$apiKey&language=en-US&page=1&include_adult=false&query=$movieName',
+      );
+      List<MoviesLandModel> movies = [];
+
+      for (var item in data['results']) {
+        movies.add(MoviesLandModel.fromJson(item));
       }
 
       return Right(movies);

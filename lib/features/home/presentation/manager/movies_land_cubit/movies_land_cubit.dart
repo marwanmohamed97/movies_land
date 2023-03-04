@@ -22,4 +22,30 @@ class MoviesLandCubit extends Cubit<MoviesLandState> {
               emit(MoviesLandSuccess(moviesLandModel)),
             });
   }
+
+  Future<void> fetchTopRatedMovies() async {
+    emit(MoviesLandLoading());
+    var result = await homeRepo.fetchTopRatedMovies();
+
+    result.fold(
+        (failure) => {
+              emit(MoviesLandfailure(failure.errMessage)),
+            },
+        (moviesLandModel) => {
+              emit(MoviesLandSuccess(moviesLandModel)),
+            });
+  }
+
+  Future<void> fetchNowPlayingMovies() async {
+    emit(MoviesLandLoading());
+    var result = await homeRepo.fetchNowPlayingMovies();
+
+    result.fold(
+        (failure) => {
+              emit(MoviesLandfailure(failure.errMessage)),
+            },
+        (moviesLandModel) => {
+              emit(MoviesLandSuccess(moviesLandModel)),
+            });
+  }
 }

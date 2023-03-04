@@ -8,10 +8,13 @@ import 'package:movies_land/features/home/data/models/actor_model.dart';
 import 'package:movies_land/features/home/data/repos/home_repo_impl.dart';
 
 class ActorView extends StatefulWidget {
-  const ActorView({Key? key, required this.movie}) : super(key: key);
+  const ActorView({
+    Key? key,
+    required this.movie,
+  }) : super(key: key);
 
   final ActorModel movie;
-
+  //final int movieId;
   @override
   State<ActorView> createState() => _ActorViewState();
 }

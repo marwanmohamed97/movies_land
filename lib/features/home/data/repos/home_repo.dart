@@ -8,6 +8,10 @@ import '../models/actor_model.dart';
 
 abstract class HomeRepo {
   Future<Either<Failure, List<MoviesLandModel>>> fetchTrendingMovies();
+  Future<Either<Failure, List<MoviesLandModel>>> fetchTopRatedMovies();
+  Future<Either<Failure, List<MoviesLandModel>>> fetchNowPlayingMovies();
+  Future<Either<Failure, List<MoviesLandModel>>> fetchSearchMovie(
+      {required String movieName});
   Future<Either<Failure, List<MovieDetailModel>>> fetchMovieDetails(
       {required int movieId});
   Future<Either<Failure, List<MovieTrailerModel>>> fetchMovieTrailer(

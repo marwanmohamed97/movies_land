@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_land/core/ulits/service_locator.dart';
+import 'package:movies_land/features/home/data/repos/home_repo_impl.dart';
+import 'package:movies_land/features/home/presentation/manager/movies_land_cubit/movies_land_cubit.dart';
 
 import '../../../../../core/ulits/styles.dart';
 import 'custom_app_bar.dart';
 import 'custom_search_button.dart';
-import 'featured_box.dart';
+
 import 'custom_movie_item.dart';
 
 class HomeMovieView extends StatelessWidget {
@@ -30,7 +34,6 @@ class HomeMovieView extends StatelessWidget {
                 SizedBox(
                   height: 24,
                 ),
-                FeaturedBox(),
               ],
             ),
           ),
@@ -39,38 +42,54 @@ class HomeMovieView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(
+                  'Trending',
+                  style:
+                      Styles.textStyle16.copyWith(fontWeight: FontWeight.w600),
+                ),
                 const SizedBox(
                   height: 24,
                 ),
-                const CustomMovieItem(),
+                BlocProvider(
+                  create: (context) =>
+                      MoviesLandCubit(getIt.get<HomeRepoImpl>())
+                        ..fetchTrendingMovies(),
+                  child: const CustomMovieItem(),
+                ),
                 const SizedBox(
                   height: 24,
                 ),
                 Text(
-                  'Movies Land Picks',
+                  'Playing Now',
                   style:
                       Styles.textStyle16.copyWith(fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
-                const CustomMovieItem(
-                    //width: 112,
-                    ),
+                BlocProvider(
+                  create: (context) =>
+                      MoviesLandCubit(getIt.get<HomeRepoImpl>())
+                        ..fetchNowPlayingMovies(),
+                  child: const CustomMovieItem(),
+                ),
                 const SizedBox(
                   height: 24,
                 ),
                 Text(
-                  'Just Added',
+                  'Top Rated',
                   style:
                       Styles.textStyle16.copyWith(fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
-                const CustomMovieItem(
-                    //width: 112,
-                    ),
+                BlocProvider(
+                  create: (context) =>
+                      MoviesLandCubit(getIt.get<HomeRepoImpl>())
+                        ..fetchTopRatedMovies(),
+                  child: const CustomMovieItem(),
+                ),
               ],
             ),
           ),

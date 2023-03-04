@@ -13,6 +13,7 @@ import 'package:movies_land/features/home/data/models/movies_land_model.dart';
 import 'package:movies_land/features/home/data/repos/home_repo_impl.dart';
 import 'package:movies_land/features/home/presentation/views/home_view.dart';
 import 'package:movies_land/features/home/presentation/views/widgets/movie_details_view.dart';
+import 'package:movies_land/features/profile/presentation/manager/search_movie_cubit/search_movie_cubit.dart';
 import 'package:movies_land/features/search/presentation/views/search_view.dart';
 import 'package:movies_land/features/splash/presentation/views/splash_view.dart';
 
@@ -45,7 +46,10 @@ abstract class AppRouter {
       ),
       GoRoute(
         path: searchView,
-        builder: (context, state) => const SearchView(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => SearchMovieCubit(getIt.get<HomeRepoImpl>()),
+          child: const SearchView(),
+        ),
       ),
       GoRoute(
         path: movieDetailsView,

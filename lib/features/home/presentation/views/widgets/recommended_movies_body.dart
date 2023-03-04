@@ -20,7 +20,7 @@ class RecommendedMoviesBody extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             GoRouter.of(context)
-                .push(AppRouter.movieDetailsView, extra: movies[index]);
+                .push(AppRouter.movieDetailsView, extra: movies[index].id);
           },
           child: Container(
             color: Colors.black,
@@ -36,8 +36,7 @@ class RecommendedMoviesBody extends StatelessWidget {
                       child: AspectRatio(
                         aspectRatio: 2.6 / 3,
                         child: Image.network(
-                          imageUrlMaker(
-                              imageUrl: movies[index].posterPath ?? ''),
+                          imageUrlMaker(imageUrl: movies[index].posterPath),
                           fit: BoxFit.fill,
                         ),
                       ),

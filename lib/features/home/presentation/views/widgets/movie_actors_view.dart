@@ -9,7 +9,7 @@ import '../../../data/models/actor_model.dart';
 class MovieActorsView extends StatelessWidget {
   const MovieActorsView({Key? key, required this.actor}) : super(key: key);
 
-  final List<ActorModel> actor;
+  final List actor;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -37,7 +37,7 @@ class MovieActorsView extends StatelessWidget {
                     child: AspectRatio(
                       aspectRatio: 2.6 / 3,
                       child: Image.network(
-                        imageUrlMaker(imageUrl: actor[index].profilePath ?? ''),
+                        imageUrlMaker(imageUrl: actor[index].profilePath),
                         fit: BoxFit.fill,
                       ),
                     ),

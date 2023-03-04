@@ -33,7 +33,7 @@ class MoviesByActor extends StatelessWidget {
                     child: AspectRatio(
                       aspectRatio: 2.6 / 3,
                       child: Image.network(
-                        imageUrlMaker(imageUrl: movies[index].posterPath ?? ''),
+                        imageUrlMaker(imageUrl: movies[index].posterPath),
                         fit: BoxFit.fill,
                       ),
                     ),

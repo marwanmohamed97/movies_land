@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_land/core/ulits/service_locator.dart';
 import 'package:movies_land/features/home/data/repos/home_repo_impl.dart';
+import 'package:movies_land/features/home/presentation/manager/movies_details_cubit/movies_details_cubit.dart';
 import 'package:movies_land/features/home/presentation/views/widgets/recommended_movies.dart';
 import '../../../../../core/ulits/styles.dart';
 import '../../manager/movie_actors_cubit/movie_actros_cubit.dart';
@@ -75,14 +76,13 @@ class _RecommendedOrActorsState extends State<RecommendedOrActors> {
                 create: (context) =>
                     RecommendedMoviesCubit(getIt.get<HomeRepoImpl>())
                       ..fetchRecommendedMovies(movieId: widget.movieID),
-                child: RecommendedMovies(
-                  movieID: widget.movieID,
-                ),
+                child: const RecommendedMovies(),
               )
             : BlocProvider(
-                create: (context) => MovieActrosCubit(getIt.get<HomeRepoImpl>())
-                  ..fetchMovieActors(movieId: widget.movieID),
-                child: MovieActors(movieId: widget.movieID),
+                create: (context) =>
+                    MoviesDetailsCubit(getIt.get<HomeRepoImpl>())
+                      ..fetchMovieActors(movieId: widget.movieID),
+                child: const MovieActors(),
               )
       ],
     );

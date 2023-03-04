@@ -12,9 +12,12 @@ class MoviesDetailsInitial extends MoviesDetailsState {}
 class MoviesDetailsLoading extends MoviesDetailsState {}
 
 class MoviesDetailsSuccess extends MoviesDetailsState {
-  final List<MovieDetailModel> movie;
-
-  const MoviesDetailsSuccess(this.movie);
+  final List movie;
+  //final List movieActors;
+  // final List<ActorModel> movies;
+  const MoviesDetailsSuccess(
+    this.movie,
+  );
 }
 
 class MoviesDetailsFailure extends MoviesDetailsState {
