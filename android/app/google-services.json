@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "570336114540",
+    "project_id": "movies-land-cd348",
+    "storage_bucket": "movies-land-cd348.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570336114540:android:c67c7e473634a878416549",
+        "android_client_info": {
+          "package_name": "com.example.movies_land"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "570336114540-ieq95ohb0lke92bjhoho3ks229e628ta.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRzNER_TmbMSh3d8OwCtbf7GuKpOaibbw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "570336114540-ieq95ohb0lke92bjhoho3ks229e628ta.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

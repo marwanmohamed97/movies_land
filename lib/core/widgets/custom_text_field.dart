@@ -6,13 +6,17 @@ class CustomTextField extends StatefulWidget {
       required this.hintText,
       required this.prefixIcon,
       this.suffixIcon,
-      this.isPassword = false})
+      this.onChanged,
+      this.isPassword = false,
+      this.controller})
       : super(key: key);
 
   final String hintText;
   final IconData prefixIcon;
   final IconData? suffixIcon;
   bool? isPassword;
+  Function(String)? onChanged;
+  TextEditingController? controller;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -22,11 +26,16 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      //autofocus: true,
+      onChanged: widget.onChanged,
+      controller: widget.controller,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'This field can\'t be impty';
+        }
+        return null;
+      },
       obscureText: widget.isPassword!,
       decoration: InputDecoration(
-        //focusColor: Colors.white,
-        //iconColor: Colors.white,
         hintText: widget.hintText,
         filled: true,
         suffixIcon: IconButton(

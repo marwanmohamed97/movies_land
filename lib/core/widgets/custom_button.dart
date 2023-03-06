@@ -7,22 +7,25 @@ class CustomButton extends StatelessWidget {
       {Key? key,
       this.backgroundColor,
       required this.textColor,
+      required this.onpressed,
       required this.buttonContent,
       this.isSginOut = false})
       : super(key: key);
 
   final Color? backgroundColor;
   final Color textColor;
-  final Widget buttonContent;
+  final String buttonContent;
   final bool isSginOut;
+  final VoidCallback onpressed;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       height: 61,
       child: TextButton(
-        onPressed: () {},
+        onPressed: onpressed,
         style: TextButton.styleFrom(
+          textStyle: TextStyle(color: textColor),
           backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
@@ -32,7 +35,10 @@ class CustomButton extends StatelessWidget {
                 : const BorderSide(),
           ),
         ),
-        child: buttonContent,
+        child: Text(
+          buttonContent,
+          style: const TextStyle(color: Colors.black),
+        ),
       ),
     );
   }

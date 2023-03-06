@@ -33,9 +33,10 @@ class ForgetPasswordViewBody extends StatelessWidget {
           const SizedBox(
             height: 150,
           ),
-          const CustomButton(
+          CustomButton(
+            onpressed: () {},
             textColor: Colors.black,
-            buttonContent: Text('SEND'),
+            buttonContent: 'SEND',
             backgroundColor: kPrimaryColor,
           ),
           const SizedBox(

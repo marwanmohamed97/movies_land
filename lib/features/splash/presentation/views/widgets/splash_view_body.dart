@@ -24,10 +24,11 @@ class SplashViewBody extends StatelessWidget {
           const SizedBox(
             height: 56,
           ),
-          const CustomButton(
+          CustomButton(
+            onpressed: () {},
             backgroundColor: kButtonColor,
             textColor: Colors.black,
-            buttonContent: Text('GET STARTED'),
+            buttonContent: 'GET STARTED',
           ),
           const SizedBox(
             height: 12,

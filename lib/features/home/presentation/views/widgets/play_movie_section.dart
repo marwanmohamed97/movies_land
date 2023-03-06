@@ -1,18 +1,32 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:movies_land/core/ulits/app_router.dart';
 import 'package:movies_land/core/widgets/custom_error_view.dart';
 import 'package:movies_land/features/home/data/models/movie/movie.trailer.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../../../../constats.dart';
 import '../../../../../core/ulits/styles.dart';
+import '../../../data/models/movie/movie.details.dart';
 import '../../manager/movie_trailer_cubit/movie_trailer_cubit.dart';
 
-class PlayMovieSection extends StatelessWidget {
+class PlayMovieSection extends StatefulWidget {
   const PlayMovieSection({
     super.key,
-    //required this.movie,
+    required this.movie,
   });
-  //final MovieTrailerModel movie;
+
+  final MovieDetailModel movie;
+  @override
+  State<PlayMovieSection> createState() => _PlayMovieSectionState();
+}
+
+class _PlayMovieSectionState extends State<PlayMovieSection> {
+  CollectionReference movieId =
+      FirebaseFirestore.instance.collection('favorite');
+
+  bool isfavorite = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +51,35 @@ class PlayMovieSection extends StatelessWidget {
           width: 20,
         ),
         IconButton(
-          onPressed: () {},
-          icon: const Icon(
+          onPressed: () {
+            if (kEmail != null) {
+              if (isfavorite) {
+                movieId
+                    .doc(kEmail)
+                    //.doc('0fXTvhTvhwhPFfTLfnHr')
+                    .delete()
+                    .then((value) => print("movie Deleted"))
+                    .catchError(
+                        (error) => print("Failed to delete movie: $error"));
+                ;
+
+                isfavorite = !isfavorite;
+              } else {
+                movieId
+                    .add({'Movie_ID': widget.movie.id, 'email': kEmail})
+                    .then((value) => print("movie Added"))
+                    .catchError(
+                        (error) => print("Failed to add movie: $error"));
+                isfavorite = !isfavorite;
+              }
+              setState(() {});
+            } else {
+              GoRouter.of(context).push(AppRouter.logInView);
+            }
+          },
+          icon: Icon(
             Icons.favorite_border,
+            color: isfavorite ? Colors.red : Colors.white,
           ),
         ),
         const Spacer(),

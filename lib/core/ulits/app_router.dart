@@ -26,6 +26,7 @@ abstract class AppRouter {
   static const searchView = '/SearchView';
   static const movieDetailsView = '/MovieDetailsView';
   static const actorView = '/ActorView';
+  static const homeView = '/HomeView';
   static final router = GoRouter(
     routes: [
       GoRoute(
@@ -35,6 +36,10 @@ abstract class AppRouter {
       GoRoute(
         path: logInView,
         builder: (context, state) => const LoginView(),
+      ),
+      GoRoute(
+        path: homeView,
+        builder: (context, state) => const HomeView(),
       ),
       GoRoute(
         path: signUpView,

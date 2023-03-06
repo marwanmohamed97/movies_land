@@ -4,9 +4,9 @@ import 'package:movies_land/core/ulits/service_locator.dart';
 import 'package:movies_land/core/widgets/custom_error_view.dart';
 import 'package:movies_land/features/home/data/models/movies_land_model.dart';
 import 'package:movies_land/features/home/data/repos/home_repo_impl.dart';
-import 'package:movies_land/features/home/presentation/views/widgets/movie_details_view_body.dart';
 import '../../manager/movie_trailer_cubit/movie_trailer_cubit.dart';
 import '../../manager/movies_details_cubit/movies_details_cubit.dart';
+import 'movie_details_view_body.dart';
 
 class MovieDetailsView extends StatefulWidget {
   const MovieDetailsView({

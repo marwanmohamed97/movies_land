@@ -93,7 +93,7 @@ class MovieDetailsViewBody extends StatelessWidget {
                             const SizedBox(
                               height: 32,
                             ),
-                            const PlayMovieSection(),
+                            PlayMovieSection(movie: movie),
                             const SizedBox(
                               height: 32,
                             ),
