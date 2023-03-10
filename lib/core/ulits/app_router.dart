@@ -14,6 +14,7 @@ import 'package:movies_land/features/home/data/repos/home_repo_impl.dart';
 import 'package:movies_land/features/home/presentation/views/home_view.dart';
 import 'package:movies_land/features/home/presentation/views/widgets/movie_details_view.dart';
 import 'package:movies_land/features/profile/presentation/manager/search_movie_cubit/search_movie_cubit.dart';
+import 'package:movies_land/features/profile/presentation/views/widgets/favorites_view.dart';
 import 'package:movies_land/features/search/presentation/views/search_view.dart';
 import 'package:movies_land/features/splash/presentation/views/splash_view.dart';
 
@@ -27,6 +28,7 @@ abstract class AppRouter {
   static const movieDetailsView = '/MovieDetailsView';
   static const actorView = '/ActorView';
   static const homeView = '/HomeView';
+  static const faviritesView = '/FavoritesView';
   static final router = GoRouter(
     routes: [
       GoRoute(
@@ -70,6 +72,13 @@ abstract class AppRouter {
         builder: (context, state) => BlocProvider(
           create: (context) => MovieByActorCubit(getIt.get<HomeRepoImpl>()),
           child: ActorView(movie: state.extra as ActorModel),
+        ),
+      ),
+      GoRoute(
+        path: faviritesView,
+        builder: (context, state) => BlocProvider(
+          create: (context) => MoviesDetailsCubit(getIt.get<HomeRepoImpl>()),
+          child: const FavoriteView(),
         ),
       ),
     ],

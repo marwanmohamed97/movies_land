@@ -23,10 +23,29 @@ class PlayMovieSection extends StatefulWidget {
 }
 
 class _PlayMovieSectionState extends State<PlayMovieSection> {
-  CollectionReference movieId =
-      FirebaseFirestore.instance.collection('favorite');
+  // CollectionReference movieId =
+  //     FirebaseFirestore.instance.collection('favorite');
+  final db = FirebaseFirestore.instance;
 
   bool isfavorite = false;
+  @override
+  void initState() {
+    super.initState();
+    checkIfUserLogedIn();
+  }
+
+  Future<void> checkIfUserLogedIn() async {
+    if (kEmail != null) {
+      var doc = await db.collection(kEmail!).doc(widget.movie.title).get();
+      if (doc.exists) {
+        isfavorite = true;
+        // return true;
+      } else {
+        isfavorite = false;
+        // return false;
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,36 +69,40 @@ class _PlayMovieSectionState extends State<PlayMovieSection> {
         const SizedBox(
           width: 20,
         ),
-        IconButton(
-          onPressed: () {
-            if (kEmail != null) {
-              if (isfavorite) {
-                movieId
-                    .doc(kEmail)
-                    //.doc('0fXTvhTvhwhPFfTLfnHr')
-                    .delete()
-                    .then((value) => print("movie Deleted"))
-                    .catchError(
-                        (error) => print("Failed to delete movie: $error"));
-                ;
+        FutureBuilder(
+          future: checkIfUserLogedIn(),
+          builder: (context, snapshot) => IconButton(
+            onPressed: () {
+              if (kEmail != null) {
+                if (isfavorite) {
+                  db
+                      .collection(kEmail!)
+                      .doc(widget.movie.title)
+                      .delete()
+                      .then((value) => print("movie Deleted"))
+                      .catchError(
+                          (error) => print("Failed to delete movie: $error"));
 
-                isfavorite = !isfavorite;
+                  isfavorite = !isfavorite;
+                } else {
+                  final movie = db.collection(kEmail!);
+                  final data = <String, dynamic>{
+                    'movie_ID': widget.movie.id,
+                    'movie_name': widget.movie.title
+                  };
+                  movie.doc(widget.movie.title).set(data);
+
+                  isfavorite = !isfavorite;
+                }
+                setState(() {});
               } else {
-                movieId
-                    .add({'Movie_ID': widget.movie.id, 'email': kEmail})
-                    .then((value) => print("movie Added"))
-                    .catchError(
-                        (error) => print("Failed to add movie: $error"));
-                isfavorite = !isfavorite;
+                GoRouter.of(context).push(AppRouter.logInView);
               }
-              setState(() {});
-            } else {
-              GoRouter.of(context).push(AppRouter.logInView);
-            }
-          },
-          icon: Icon(
-            Icons.favorite_border,
-            color: isfavorite ? Colors.red : Colors.white,
+            },
+            icon: Icon(
+              isfavorite ? Icons.favorite : Icons.favorite_border,
+              color: isfavorite ? Colors.red : Colors.white,
+            ),
           ),
         ),
         const Spacer(),

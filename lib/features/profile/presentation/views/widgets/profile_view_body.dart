@@ -87,20 +87,25 @@ class ProfileViewBody extends StatelessWidget {
                       const SizedBox(
                         height: 24,
                       ),
-                      Row(
-                        children: const [
-                          Icon(
-                            Icons.favorite,
-                            size: 24,
-                          ),
-                          SizedBox(
-                            width: 40,
-                          ),
-                          Text(
-                            'Favorites',
-                            style: Styles.textStyle16,
-                          ),
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          GoRouter.of(context).push(AppRouter.faviritesView);
+                        },
+                        child: Row(
+                          children: const [
+                            Icon(
+                              Icons.favorite,
+                              size: 24,
+                            ),
+                            SizedBox(
+                              width: 40,
+                            ),
+                            Text(
+                              'Favorites',
+                              style: Styles.textStyle16,
+                            ),
+                          ],
+                        ),
                       ),
                       const SizedBox(
                         height: 24,
