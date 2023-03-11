@@ -75,16 +75,13 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             CustomButton(
               onpressed: () async {
                 try {
-                  final credential =
-                      await FirebaseAuth.instance.signInWithEmailAndPassword(
+                  await FirebaseAuth.instance.signInWithEmailAndPassword(
                     email: email.toString(),
                     password: password.toString(),
                   );
                   kEmail = email;
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Success Login')),
-                  );
-                  GoRouter.of(context).push(AppRouter.homeView);
+
+                  Navigator.of(context).pop();
                 } on FirebaseAuthException catch (e) {
                   if (e.code == 'user-not-found') {
                     ScaffoldMessenger.of(context).showSnackBar(

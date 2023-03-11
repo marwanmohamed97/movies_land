@@ -6,12 +6,18 @@ import 'package:movies_land/constats.dart';
 import 'package:movies_land/core/ulits/app_router.dart';
 import 'package:movies_land/core/ulits/styles.dart';
 import 'package:movies_land/core/widgets/custom_button.dart';
+import 'package:movies_land/features/auth/presentation/views/login_view.dart';
 import 'package:movies_land/features/home/presentation/views/widgets/custom_app_bar.dart';
 import 'package:movies_land/features/profile/presentation/views/widgets/profile_image.dart';
 
-class ProfileViewBody extends StatelessWidget {
+class ProfileViewBody extends StatefulWidget {
   const ProfileViewBody({Key? key}) : super(key: key);
 
+  @override
+  State<ProfileViewBody> createState() => _ProfileViewBodyState();
+}
+
+class _ProfileViewBodyState extends State<ProfileViewBody> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -89,7 +95,9 @@ class ProfileViewBody extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          GoRouter.of(context).push(AppRouter.faviritesView);
+                          if (kEmail != null) {
+                            GoRouter.of(context).push(AppRouter.faviritesView);
+                          }
                         },
                         child: Row(
                           children: const [
@@ -136,7 +144,16 @@ class ProfileViewBody extends StatelessWidget {
             kEmail == null
                 ? CustomAuthButton(
                     onpressed: () {
-                      GoRouter.of(context).push(AppRouter.logInView);
+                      setState(() {});
+                      // GoRouter.of(context).push(AppRouter.logInView);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginView(),
+                        ),
+                      ).then((value) {
+                        setState(() {});
+                      });
                     },
                     hintText: 'LOG IN',
                     icon: Icons.login,
@@ -145,7 +162,7 @@ class ProfileViewBody extends StatelessWidget {
                     onpressed: () async {
                       await FirebaseAuth.instance.signOut();
                       kEmail = null;
-                      GoRouter.of(context).push(AppRouter.homeView);
+                      setState(() {});
                     },
                     hintText: 'LOG OUT',
                     icon: Icons.logout,

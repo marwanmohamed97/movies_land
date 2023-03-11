@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,6 @@ class _ProfileImageState extends State<ProfileImage> {
 
   @override
   void initState() {
-    getimage();
     super.initState();
   }
 
@@ -62,14 +62,8 @@ class _ProfileImageState extends State<ProfileImage> {
                     foregroundDecoration: BoxDecoration(
                       image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: NetworkImage(snapshot.data ??
-                              'https://i.imgur.com/sUFH1Aq.png')
-                          // image: imageUrl == null
-                          //     ? NetworkImage(
-                          //         getimage(email: kEmail!).toString(),
-                          //       )
-                          //     : const NetworkImage('https://i.imgur.com/sUFH1Aq.png'),
-                          ),
+                          image: CachedNetworkImageProvider(snapshot.data ??
+                              'https://i.imgur.com/sUFH1Aq.png')),
                       borderRadius: BorderRadius.circular(100),
                     ),
                   );
@@ -78,11 +72,9 @@ class _ProfileImageState extends State<ProfileImage> {
         ),
         GestureDetector(
           onTap: () async {
-            // uploadImage();
             ImagePicker imagePicker = ImagePicker();
             XFile? file =
                 await imagePicker.pickImage(source: ImageSource.camera);
-            print('${file?.path}');
 
             Reference referenceRoot = FirebaseStorage.instance.ref();
             Reference referenceDirInmages = referenceRoot.child('images');
@@ -94,8 +86,6 @@ class _ProfileImageState extends State<ProfileImage> {
 
             try {
               await referenceImageToUpLoad.putFile(File(file!.path));
-              imageUrl = await referenceImageToUpLoad.getDownloadURL();
-              print('image URl is ===== $imageUrl');
             } catch (e) {}
           },
           child: const CircleAvatar(
@@ -106,37 +96,5 @@ class _ProfileImageState extends State<ProfileImage> {
         )
       ],
     );
-  }
-
-  uploadImage() async {
-    final firebaseStorage = FirebaseStorage.instance;
-    final imagePicker = ImagePicker();
-    PickedFile image;
-    //Check Permissions
-    await Permission.photos.request();
-
-    // _checkPermission(context);
-    var permissionStatus = await Permission.photos.status;
-
-    if (await Permission.photos.request().isGranted) {
-      //Select Image
-      final image = await imagePicker.pickImage(source: ImageSource.gallery);
-      // final pickedFile = await _imagePicker.pickImage(source: ImageSource.camera);
-      var file = File(image!.path);
-
-      if (image != null) {
-        //Upload to Firebase
-        var snapshot =
-            await firebaseStorage.ref().child('images/imageName').putFile(file);
-        var downloadUrl = await snapshot.ref.getDownloadURL();
-        setState(() {
-          imageUrl = downloadUrl;
-        });
-      } else {
-        print('No Image Path Received');
-      }
-    } else {
-      print('Permission not granted. Try Again with permission access');
-    }
   }
 }

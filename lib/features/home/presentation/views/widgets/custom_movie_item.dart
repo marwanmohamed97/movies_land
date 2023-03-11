@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_land/core/widgets/custom_error_view.dart';
+import 'package:movies_land/core/widgets/custom_movie_item_loading.dart';
 import '../../manager/movies_land_cubit/movies_land_cubit.dart';
 import 'custom_movie_item_view.dart';
 
@@ -20,7 +21,7 @@ class CustomMovieItem extends StatelessWidget {
         } else if (state is MoviesLandfailure) {
           return CustomErrorView(errMessage: state.errMessage);
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return const CustomMovieItemLoading();
         }
       },
     );
