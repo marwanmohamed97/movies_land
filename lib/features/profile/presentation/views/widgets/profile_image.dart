@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../constats.dart';
 
@@ -21,17 +22,35 @@ class _ProfileImageState extends State<ProfileImage> {
   String? imageUrli;
   String? imageUrl;
 
-  Future<String> getimage() async {
-    final ref = FirebaseStorage.instance.ref().child('images/$kEmail');
+  // Future<String> getimage() async {
+  //   final ref = FirebaseStorage.instance.ref().child('images/$kEmail');
 
-    var imageUrl = await ref.getDownloadURL();
-    print('image is  $imageUrl');
+  //   var imageUrl = await ref.getDownloadURL();
+  //   print('image is  $imageUrl');
+  //   imageUrli = imageUrl;
+  //   return imageUrl;
+  // }
+  // void getimage() async {
+  //   final ref = FirebaseStorage.instance.ref().child('images/$kEmail');
 
-    return imageUrl;
-  }
+  //   var imageUrl = await ref.getDownloadURL();
+  //   final sharedpref = await SharedPreferences.getInstance();
+  //   sharedpref.setString('path', imageUrl);
+  //   getdata();
+  // }
+
+  // void getdata() async {
+  //   final sharedpref = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     imageUrli = sharedpref.getString('path');
+  //     kProfileImage = imageUrli;
+  //   });
+  //   print(imageUrli);
+  // }
 
   @override
   void initState() {
+    // getimage();
     super.initState();
   }
 
@@ -56,14 +75,17 @@ class _ProfileImageState extends State<ProfileImage> {
               radius: 100,
               backgroundColor: kPrimaryColor,
               child: FutureBuilder(
-                future: getimage(),
+                // future: kProfileImage,
                 builder: (context, snapshot) {
                   return Container(
                     foregroundDecoration: BoxDecoration(
                       image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: CachedNetworkImageProvider(snapshot.data ??
-                              'https://i.imgur.com/sUFH1Aq.png')),
+                        fit: BoxFit.cover,
+                        image: CachedNetworkImageProvider(
+                          kProfileImage ??
+                              'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+                        ),
+                      ),
                       borderRadius: BorderRadius.circular(100),
                     ),
                   );

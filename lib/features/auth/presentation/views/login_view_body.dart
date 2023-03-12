@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies_land/constats.dart';
@@ -7,6 +8,7 @@ import 'package:movies_land/core/ulits/styles.dart';
 import 'package:movies_land/core/widgets/custom_button.dart';
 import 'package:movies_land/core/widgets/custom_general_view.dart';
 import 'package:movies_land/features/home/presentation/views/home_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/widgets/custom_text_field.dart';
 
@@ -80,6 +82,13 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     password: password.toString(),
                   );
                   kEmail = email;
+                  final ref =
+                      FirebaseStorage.instance.ref().child('images/$kEmail');
+
+                  var imageUrl = await ref.getDownloadURL();
+                  final sharedpref = await SharedPreferences.getInstance();
+                  sharedpref.setString('path', imageUrl);
+                  kProfileImage = sharedpref.getString('path');
 
                   Navigator.of(context).pop();
                 } on FirebaseAuthException catch (e) {

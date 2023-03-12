@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_land/core/ulits/styles.dart';
+import 'package:movies_land/core/widgets/custom_list_of_movies_loading.dart';
+import 'package:movies_land/core/widgets/custom_movie_item_loading.dart';
 import 'package:movies_land/features/home/presentation/manager/movies_details_cubit/movies_details_cubit.dart';
 import 'package:movies_land/features/home/presentation/views/widgets/recommended_movies_body.dart';
 
@@ -30,8 +32,13 @@ class RecommendedMovies extends StatelessWidget {
             )),
           );
         } else {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: 5,
+            itemBuilder: (context, index) {
+              return const CustomListOfMoviesLoading();
+            },
           );
         }
       },

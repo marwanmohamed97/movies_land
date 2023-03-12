@@ -9,6 +9,7 @@ import 'package:movies_land/core/widgets/custom_button.dart';
 import 'package:movies_land/features/auth/presentation/views/login_view.dart';
 import 'package:movies_land/features/home/presentation/views/widgets/custom_app_bar.dart';
 import 'package:movies_land/features/profile/presentation/views/widgets/profile_image.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileViewBody extends StatefulWidget {
   const ProfileViewBody({Key? key}) : super(key: key);
@@ -163,6 +164,8 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                       await FirebaseAuth.instance.signOut();
                       kEmail = null;
                       setState(() {});
+                      final pref = await SharedPreferences.getInstance();
+                      pref.remove('path');
                     },
                     hintText: 'LOG OUT',
                     icon: Icons.logout,

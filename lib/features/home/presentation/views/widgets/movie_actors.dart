@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_land/core/widgets/custom_list_of_movies_loading.dart';
 import 'package:movies_land/features/home/data/models/actor_model.dart';
 import 'package:movies_land/features/home/presentation/manager/movies_details_cubit/movies_details_cubit.dart';
 import '../../../../../core/widgets/custom_error_view.dart';
@@ -22,8 +23,13 @@ class MovieActors extends StatelessWidget {
         } else if (state is MoviesDetailsFailure) {
           return CustomErrorView(errMessage: state.errMessage);
         } else {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: 5,
+            itemBuilder: (context, index) {
+              return const CustomListOfMoviesLoading();
+            },
           );
         }
       },

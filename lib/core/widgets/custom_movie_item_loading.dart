@@ -16,14 +16,14 @@ class CustomMovieItemLoading extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.only(right: 10),
             child: Shimmer.fromColors(
-              baseColor: Color.fromARGB(255, 49, 49, 49)!,
-              highlightColor: Color.fromARGB(255, 5, 5, 5)!,
+              baseColor: const Color.fromARGB(255, 49, 49, 49)!,
+              highlightColor: const Color.fromARGB(255, 5, 5, 5)!,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
                 child: AspectRatio(
                   aspectRatio: 2.6 / 4,
                   child: Container(
-                    color: Color.fromARGB(255, 0, 0, 0),
+                    color: const Color.fromARGB(255, 0, 0, 0),
                   ),
                 ),
               ),
