@@ -22,38 +22,6 @@ class _ProfileImageState extends State<ProfileImage> {
   String? imageUrli;
   String? imageUrl;
 
-  // Future<String> getimage() async {
-  //   final ref = FirebaseStorage.instance.ref().child('images/$kEmail');
-
-  //   var imageUrl = await ref.getDownloadURL();
-  //   print('image is  $imageUrl');
-  //   imageUrli = imageUrl;
-  //   return imageUrl;
-  // }
-  // void getimage() async {
-  //   final ref = FirebaseStorage.instance.ref().child('images/$kEmail');
-
-  //   var imageUrl = await ref.getDownloadURL();
-  //   final sharedpref = await SharedPreferences.getInstance();
-  //   sharedpref.setString('path', imageUrl);
-  //   getdata();
-  // }
-
-  // void getdata() async {
-  //   final sharedpref = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     imageUrli = sharedpref.getString('path');
-  //     kProfileImage = imageUrli;
-  //   });
-  //   print(imageUrli);
-  // }
-
-  @override
-  void initState() {
-    // getimage();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -75,7 +43,6 @@ class _ProfileImageState extends State<ProfileImage> {
               radius: 100,
               backgroundColor: kPrimaryColor,
               child: FutureBuilder(
-                // future: kProfileImage,
                 builder: (context, snapshot) {
                   return Container(
                     foregroundDecoration: BoxDecoration(

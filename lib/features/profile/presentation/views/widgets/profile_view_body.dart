@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -19,6 +22,8 @@ class ProfileViewBody extends StatefulWidget {
 }
 
 class _ProfileViewBodyState extends State<ProfileViewBody> {
+  CollectionReference names = FirebaseFirestore.instance.collection('names');
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -41,10 +46,18 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                   const SizedBox(
                     height: 32,
                   ),
-                  const Text(
-                    'Matthew',
-                    style: Styles.textStyle34,
-                  ),
+                  // FutureBuilder(
+                  //   future: names.doc(kEmail).get(),
+                  //   builder: (context, snapshot) {
+                  //     Map<String, dynamic> data =
+                  //         snapshot.data?.data() as Map<String, dynamic>;
+                  //     return Text(
+                  //       data['Full_Name'] ?? '',
+                  //       style: const TextStyle(
+                  //           fontSize: 18, fontWeight: FontWeight.bold),
+                  //     );
+                  //   },
+                  // ),
                   const SizedBox(
                     height: 42,
                   ),

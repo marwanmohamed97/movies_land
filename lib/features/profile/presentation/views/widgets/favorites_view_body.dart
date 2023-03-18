@@ -29,6 +29,10 @@ class _FavoritesViewBodyState extends State<FavoritesViewBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: const Text('Favorites'),
+      ),
       backgroundColor: Colors.black,
       body: StreamBuilder<QuerySnapshot>(
         stream: ref,

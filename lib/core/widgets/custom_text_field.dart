@@ -72,7 +72,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   Widget isFieldText() {
-    if (widget.hintText == 'Email') {
+    if (widget.hintText == 'Email' || widget.hintText == 'Full Name') {
       return const Text('');
     } else {
       return Icon(
