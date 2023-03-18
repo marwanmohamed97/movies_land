@@ -88,21 +88,19 @@ class Channels extends StatefulWidget {
 final Map<String, String> imageList = {
   'aljazera':
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDegRMNo_Y_yjLRZkj6DmRq7uQARGaHuZbLw',
-  'lofi': 'https://i1.sndcdn.com/artworks-27T65S5r0IZq3TtN-An0LOQ-t500x500.jpg',
-  'aljazera1':
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDegRMNo_Y_yjLRZkj6DmRq7uQARGaHuZbLw',
-  'lofi1':
-      'https://i1.sndcdn.com/artworks-27T65S5r0IZq3TtN-An0LOQ-t500x500.jpg',
-  'aljazera2':
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDegRMNo_Y_yjLRZkj6DmRq7uQARGaHuZbLw',
-  'lofi2':
-      'https://i1.sndcdn.com/artworks-27T65S5r0IZq3TtN-An0LOQ-t500x500.jpg',
+  'LOFI': 'https://i1.sndcdn.com/artworks-27T65S5r0IZq3TtN-An0LOQ-t500x500.jpg',
+  'BBC':
+      'https://yt3.googleusercontent.com/MRywaef1JLriHf-MUivy7-WAoVAL4sB7VHZXgmprXtmpOlN73I4wBhjjWdkZNFyJNiUP6MHm1w=s900-c-k-c0x00ffffff-no-rj',
+  'National geographic':
+      'https://yt3.googleusercontent.com/ytc/AL5GRJV5koTcK1Zq-F-3BCjM5OKQa8PKF4dQ9wy8g3uVtg=s900-c-k-c0x00ffffff-no-rj',
+  'NBC NEWS': 'https://variety.com/wp-content/uploads/2019/07/nbc-news.png',
+  'FOX': 'https://tejedd76pluu.merlincdn.net/img/FOXLogo.jpg',
   'aljazera3':
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDegRMNo_Y_yjLRZkj6DmRq7uQARGaHuZbLw',
-  'lofi3':
-      'https://i1.sndcdn.com/artworks-27T65S5r0IZq3TtN-An0LOQ-t500x500.jpg',
-  'aljazera4':
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDegRMNo_Y_yjLRZkj6DmRq7uQARGaHuZbLw',
+  'BBC NEWS':
+      'https://yt3.googleusercontent.com/MRywaef1JLriHf-MUivy7-WAoVAL4sB7VHZXgmprXtmpOlN73I4wBhjjWdkZNFyJNiUP6MHm1w=s900-c-k-c0x00ffffff-no-rj',
+  'National geographic WILD':
+      'https://yt3.googleusercontent.com/ytc/AL5GRJV5koTcK1Zq-F-3BCjM5OKQa8PKF4dQ9wy8g3uVtg=s900-c-k-c0x00ffffff-no-rj',
   'lofi4':
       'https://i1.sndcdn.com/artworks-27T65S5r0IZq3TtN-An0LOQ-t500x500.jpg',
 };
@@ -142,8 +140,15 @@ class _ChannelsState extends State<Channels> {
                   children: [
                     CachedNetworkImage(
                       imageUrl: imageList.values.elementAt(index),
+                      width: MediaQuery.of(context).size.width / 5,
                     ),
-                    Text(key)
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      key,
+                      style: Styles.textStyle16,
+                    ),
                   ],
                 ),
               ),
