@@ -25,7 +25,9 @@ class SplashViewBody extends StatelessWidget {
             height: 56,
           ),
           CustomButton(
-            onpressed: () {},
+            onpressed: () {
+              GoRouter.of(context).push(AppRouter.logInView);
+            },
             backgroundColor: kButtonColor,
             textColor: Colors.black,
             buttonContent: 'GET STARTED',
@@ -35,8 +37,7 @@ class SplashViewBody extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              GoRouter.of(context).push(AppRouter.logInView);
-              //GoRouter.of(context).go('l');
+              GoRouter.of(context).push(AppRouter.homeView);
             },
             child: const Text(
               'Skip',

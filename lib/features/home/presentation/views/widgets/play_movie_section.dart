@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +12,7 @@ import '../../../../../constats.dart';
 import '../../../../../core/ulits/styles.dart';
 import '../../../data/models/movie/movie.details.dart';
 import '../../manager/movie_trailer_cubit/movie_trailer_cubit.dart';
+import 'package:http/http.dart' as http;
 
 class PlayMovieSection extends StatefulWidget {
   const PlayMovieSection({
@@ -23,8 +26,6 @@ class PlayMovieSection extends StatefulWidget {
 }
 
 class _PlayMovieSectionState extends State<PlayMovieSection> {
-  // CollectionReference movieId =
-  //     FirebaseFirestore.instance.collection('favorite');
   final db = FirebaseFirestore.instance;
 
   bool isfavorite = false;
@@ -39,10 +40,8 @@ class _PlayMovieSectionState extends State<PlayMovieSection> {
       var doc = await db.collection(kEmail!).doc(widget.movie.title).get();
       if (doc.exists) {
         isfavorite = true;
-        // return true;
       } else {
         isfavorite = false;
-        // return false;
       }
     }
   }
@@ -107,13 +106,36 @@ class _PlayMovieSectionState extends State<PlayMovieSection> {
         ),
         const Spacer(),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            rateMovie(widget.movie.id!, 7, '824eb2092a2bff10b73d94dcc9d6e56a');
+          },
           icon: const Icon(
             Icons.more_horiz,
           ),
         ),
       ],
     );
+  }
+
+  Future<Map<String, dynamic>> rateMovie(
+      int movieId, double rating, String sessionId) async {
+    final response = await http.post(
+      Uri.parse(
+          'https://api.themoviedb.org/3/movie/$movieId/rating?api_key=319b1920e86cdd05a805f90bbf1e21b7&guest_session_id=$sessionId'),
+      body: jsonEncode({
+        'value': rating,
+      }),
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+        'Authorization': 'Bearer 319b1920e86cdd05a805f90bbf1e21b7',
+      },
+    );
+
+    if (response.statusCode == 201) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to rate movie. ${response.body}');
+    }
   }
 }
 

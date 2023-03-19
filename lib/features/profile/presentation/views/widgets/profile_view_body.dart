@@ -46,18 +46,6 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                   const SizedBox(
                     height: 32,
                   ),
-                  // FutureBuilder(
-                  //   future: names.doc(kEmail).get(),
-                  //   builder: (context, snapshot) {
-                  //     Map<String, dynamic> data =
-                  //         snapshot.data?.data() as Map<String, dynamic>;
-                  //     return Text(
-                  //       data['Full_Name'] ?? '',
-                  //       style: const TextStyle(
-                  //           fontSize: 18, fontWeight: FontWeight.bold),
-                  //     );
-                  //   },
-                  // ),
                   const SizedBox(
                     height: 42,
                   ),
@@ -159,7 +147,6 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                 ? CustomAuthButton(
                     onpressed: () {
                       setState(() {});
-                      // GoRouter.of(context).push(AppRouter.logInView);
                       Navigator.push(
                         context,
                         MaterialPageRoute(

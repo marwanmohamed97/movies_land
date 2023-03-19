@@ -22,4 +22,5 @@ abstract class HomeRepo {
       {required int movieId});
   Future<Either<Failure, List<MovieByActorModel>>> fetchMovieByActor(
       {required int movieId});
+  // Future<Either<Failure, String>> createGuestSessionID();
 }

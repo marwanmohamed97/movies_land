@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -5,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies_land/core/ulits/app_router.dart';
 import 'package:movies_land/core/widgets/custom_general_view.dart';
-
+import 'package:http/http.dart' as http;
 import '../../../../constats.dart';
 import '../../../../core/ulits/styles.dart';
 import '../../../../core/widgets/custom_button.dart';
@@ -108,18 +110,21 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                             );
                           },
                         );
-                        final credential = await FirebaseAuth.instance
+                        await FirebaseAuth.instance
                             .createUserWithEmailAndPassword(
                           email: email.toString(),
                           password: password.toString(),
                         );
-                        Navigator.of(context).pop();
-                        final name =
-                            FirebaseFirestore.instance.collection('names');
-                        name
-                            .doc(email)
-                            .set({'Full_Name': _nameController.text.trim()});
 
+                        final guestSessionId = await getGuestSessionId();
+
+                        final user =
+                            FirebaseFirestore.instance.collection('User');
+                        user.doc(email).set({
+                          'Full_Name': _nameController.text.trim(),
+                          'Session_ID': guestSessionId,
+                        });
+                        Navigator.of(context).pop();
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Success Signup')),
                         );
@@ -184,5 +189,22 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         ),
       ),
     );
+  }
+
+  Future<String> getGuestSessionId() async {
+    final url = Uri.https(
+        'api.themoviedb.org',
+        '/3/authentication/guest_session/new',
+        {'api_key': '319b1920e86cdd05a805f90bbf1e21b7'});
+    final headers = {'Content-Type': 'application/json;charset=utf-8'};
+
+    final response = await http.get(url, headers: headers);
+
+    if (response.statusCode == 200) {
+      final jsonBody = json.decode(response.body);
+      return jsonBody['guest_session_id'];
+    } else {
+      throw Exception('Failed to create guest session ID.');
+    }
   }
 }

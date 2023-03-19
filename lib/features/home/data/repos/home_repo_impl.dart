@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:movies_land/core/ulits/api_service.dart';
 import 'package:movies_land/features/home/data/models/movie/movie.details.dart';
@@ -8,6 +10,7 @@ import 'package:either_dart/src/either.dart';
 import 'package:movies_land/features/home/data/repos/home_repo.dart';
 import '../../../actors/data/models/movie_by_actor_model.dart';
 import '../models/actor_model.dart';
+import 'package:http/http.dart' as http;
 
 class HomeRepoImpl extends HomeRepo {
   final ApiService apiService;
@@ -199,4 +202,20 @@ class HomeRepoImpl extends HomeRepo {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  // @override
+  // Future<Either<Failure, String>> createGuestSessionID() async {
+
+  //  final url = Uri.https('api.themoviedb.org', '/3/authentication/guest_session/new', {'api_key': apiKey});
+  // final headers = {'Content-Type': 'application/json;charset=utf-8'};
+
+  // final response = await http.get(url, headers: headers);
+
+  // if (response.statusCode == 200) {
+  //   final jsonBody = json.decode(response.body);
+  //   return jsonBody['guest_session_id'];
+  // } else {
+  //   throw Exception('Failed to create guest session ID.');
+  // }
+  // }
 }
