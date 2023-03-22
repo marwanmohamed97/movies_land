@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -23,6 +24,16 @@ class LoginViewBody extends StatefulWidget {
 class _LoginViewBodyState extends State<LoginViewBody> {
   final _formKey = GlobalKey<FormState>();
   String? email, password;
+
+  getSession({required String doc}) async {
+    final db = FirebaseFirestore.instance;
+    db.collection('User').doc(doc).get().then((value) {
+      final data = value.data() as Map<String, dynamic>;
+      kName = data['Full_Name'];
+      kSessionID = data['Session_ID'];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomGeneralView(
@@ -131,9 +142,11 @@ class _LoginViewBodyState extends State<LoginViewBody> {
         email: email.toString(),
         password: password.toString(),
       );
+
       Navigator.of(context).pop();
       kEmail = email;
-
+      getSession(doc: email!);
+      print(kSessionID);
       try {
         final ref = FirebaseStorage.instance.ref().child('images/$kEmail');
 

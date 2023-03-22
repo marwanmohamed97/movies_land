@@ -5,6 +5,8 @@ const kPrimaryColor = Color(0xff9EF161);
 const kBackgroundColor = Color(0xff111215);
 String? kEmail;
 String? kProfileImage;
+String? kSessionID;
+String? kName;
 
 String imageUrlMaker({String? imageUrl}) {
   if (imageUrl != null) {

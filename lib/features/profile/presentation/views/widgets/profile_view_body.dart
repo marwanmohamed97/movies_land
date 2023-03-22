@@ -35,114 +35,120 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
               height: 30,
             ),
             const CustomAppBar(),
-            const SizedBox(
-              height: 50,
-            ),
+            const Spacer(),
             SizedBox(
-              width: 200,
+              width: 300,
               child: Column(
                 children: [
                   const ProfileImage(),
                   const SizedBox(
                     height: 32,
                   ),
+                  Text(
+                    kName!,
+                    style: const TextStyle(fontSize: 20),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                   const SizedBox(
                     height: 42,
                   ),
-                  Column(
-                    children: [
-                      Row(
-                        children: const [
-                          Icon(
-                            Icons.paid,
-                            size: 24,
-                          ),
-                          SizedBox(
-                            width: 40,
-                          ),
-                          Text(
-                            'My Plan',
-                            style: Styles.textStyle16,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 24,
-                      ),
-                      Row(
-                        children: const [
-                          Icon(
-                            Icons.mail,
-                            size: 24,
-                          ),
-                          SizedBox(
-                            width: 40,
-                          ),
-                          Text(
-                            'Messages',
-                            style: Styles.textStyle16,
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          CircleAvatar(
-                            backgroundColor: kPrimaryColor,
-                            radius: 14,
-                            child: Text('3'),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 24,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          if (kEmail != null) {
-                            GoRouter.of(context).push(AppRouter.faviritesView);
-                          }
-                        },
-                        child: Row(
+                  SizedBox(
+                    width: 200,
+                    child: Column(
+                      children: [
+                        Row(
                           children: const [
                             Icon(
-                              Icons.favorite,
+                              Icons.paid,
                               size: 24,
                             ),
                             SizedBox(
                               width: 40,
                             ),
                             Text(
-                              'Favorites',
+                              'My Plan',
                               style: Styles.textStyle16,
                             ),
                           ],
                         ),
-                      ),
-                      const SizedBox(
-                        height: 24,
-                      ),
-                      Row(
-                        children: const [
-                          Icon(
-                            Icons.live_help,
-                            size: 24,
+                        const SizedBox(
+                          height: 24,
+                        ),
+                        Row(
+                          children: const [
+                            Icon(
+                              Icons.mail,
+                              size: 24,
+                            ),
+                            SizedBox(
+                              width: 40,
+                            ),
+                            Text(
+                              'Messages',
+                              style: Styles.textStyle16,
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            CircleAvatar(
+                              backgroundColor: kPrimaryColor,
+                              radius: 14,
+                              child: Text('3'),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 24,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            if (kEmail != null) {
+                              GoRouter.of(context)
+                                  .push(AppRouter.faviritesView);
+                            }
+                          },
+                          child: Row(
+                            children: const [
+                              Icon(
+                                Icons.favorite,
+                                size: 24,
+                              ),
+                              SizedBox(
+                                width: 40,
+                              ),
+                              Text(
+                                'Favorites',
+                                style: Styles.textStyle16,
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                            width: 40,
-                          ),
-                          Text(
-                            'Support',
-                            style: Styles.textStyle16,
-                          ),
-                        ],
-                      ),
-                    ],
+                        ),
+                        const SizedBox(
+                          height: 24,
+                        ),
+                        Row(
+                          children: const [
+                            Icon(
+                              Icons.live_help,
+                              size: 24,
+                            ),
+                            SizedBox(
+                              width: 40,
+                            ),
+                            Text(
+                              'Support',
+                              style: Styles.textStyle16,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(
-              height: 53,
-            ),
+            const Spacer(),
             kEmail == null
                 ? CustomAuthButton(
                     onpressed: () {

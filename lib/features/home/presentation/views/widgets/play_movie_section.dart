@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movies_land/core/ulits/app_router.dart';
 import 'package:movies_land/core/widgets/custom_error_view.dart';
@@ -32,13 +34,26 @@ class _PlayMovieSectionState extends State<PlayMovieSection> {
   @override
   void initState() {
     super.initState();
+    getFavorate();
     checkIfUserLogedIn();
+  }
+
+  String? favorate;
+  getFavorate() async {
+    print('get favorate run');
+    final db = FirebaseFirestore.instance;
+    db.collection(kEmail!).doc(widget.movie.title).get().then((value) {
+      final data = value.data() as Map<String, dynamic>;
+      setState(() {
+        favorate = data['movie_name'];
+      });
+      print(favorate);
+    });
   }
 
   Future<void> checkIfUserLogedIn() async {
     if (kEmail != null) {
-      var doc = await db.collection(kEmail!).doc(widget.movie.title).get();
-      if (doc.exists) {
+      if (favorate != null) {
         isfavorite = true;
       } else {
         isfavorite = false;
@@ -71,25 +86,41 @@ class _PlayMovieSectionState extends State<PlayMovieSection> {
         FutureBuilder(
           future: checkIfUserLogedIn(),
           builder: (context, snapshot) => IconButton(
-            onPressed: () {
+            onPressed: () async {
               if (kEmail != null) {
                 if (isfavorite) {
-                  db
+                  var doc = await db
                       .collection(kEmail!)
                       .doc(widget.movie.title)
-                      .delete()
-                      .then((value) => print("movie Deleted"))
-                      .catchError(
-                          (error) => print("Failed to delete movie: $error"));
+                      .get();
+                  if (doc.exists) {
+                    db.collection(kEmail!).doc(widget.movie.title).update({
+                      'movie_ID': FieldValue.delete(),
+                      'movie_name': FieldValue.delete(),
+                    });
+                  }
+                  getFavorate();
+                  checkIfUserLogedIn();
 
                   isfavorite = !isfavorite;
                 } else {
-                  final movie = db.collection(kEmail!);
-                  final data = <String, dynamic>{
-                    'movie_ID': widget.movie.id,
-                    'movie_name': widget.movie.title
-                  };
-                  movie.doc(widget.movie.title).set(data);
+                  var doc = await db
+                      .collection(kEmail!)
+                      .doc(widget.movie.title)
+                      .get();
+                  if (doc.exists) {
+                    db.collection(kEmail!).doc(widget.movie.title).update({
+                      'movie_ID': widget.movie.id,
+                      'movie_name': widget.movie.title,
+                    });
+                  } else {
+                    db.collection(kEmail!).doc(widget.movie.title).set({
+                      'movie_ID': widget.movie.id,
+                      'movie_name': widget.movie.title,
+                    });
+                  }
+                  getFavorate();
+                  checkIfUserLogedIn();
 
                   isfavorite = !isfavorite;
                 }
@@ -105,15 +136,113 @@ class _PlayMovieSectionState extends State<PlayMovieSection> {
           ),
         ),
         const Spacer(),
-        IconButton(
+        TextButton(
           onPressed: () {
-            rateMovie(widget.movie.id!, 7, '824eb2092a2bff10b73d94dcc9d6e56a');
+            rateMoviesDialog(context);
           },
-          icon: const Icon(
-            Icons.more_horiz,
+          child: const Text(
+            'Rate',
+            style: TextStyle(color: Colors.white),
           ),
         ),
       ],
+    );
+  }
+
+  Future<dynamic> rateMoviesDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        double rating = 0;
+        return Center(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.black,
+            ),
+            width: MediaQuery.of(context).size.width - 60,
+            height: MediaQuery.of(context).size.height / 4,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                RatingBar(
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  ratingWidget: RatingWidget(
+                    full: const Icon(
+                      Icons.star,
+                      color: Colors.orange,
+                    ),
+                    half: const Icon(
+                      Icons.star_half,
+                      color: Colors.orange,
+                    ),
+                    empty: const Icon(Icons.star_border),
+                  ),
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  onRatingUpdate: (rate) {
+                    setState(() {
+                      rating = rate * 2;
+                    });
+                  },
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        'Delete Rate',
+                        style: Styles.textStyle14.copyWith(color: Colors.black),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: kPrimaryColor,
+                      ),
+                      onPressed: () {
+                        if (kSessionID == null) {
+                          GoRouter.of(context).push(AppRouter.logInView);
+                        } else {
+                          rateMovie(widget.movie.id!, rating, kSessionID!);
+                          final user =
+                              FirebaseFirestore.instance.collection(kEmail!);
+                          FirebaseFirestore.instance
+                              .collection(kEmail!)
+                              .doc(widget.movie.title)
+                              .get()
+                              .then((DocumentSnapshot documentSnapshot) {
+                            if (documentSnapshot.exists) {
+                              user.doc(widget.movie.title).update({
+                                'Rating': rating,
+                              });
+                            } else {
+                              user.doc(widget.movie.title).set({
+                                'Rating': rating,
+                              });
+                            }
+                          });
+                        }
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'Rate Movie',
+                        style: Styles.textStyle14.copyWith(color: Colors.black),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 

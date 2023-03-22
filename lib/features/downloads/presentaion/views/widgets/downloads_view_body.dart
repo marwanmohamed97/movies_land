@@ -19,10 +19,11 @@ class DownlaodsViewBody extends StatefulWidget {
 }
 
 class _DownlaodsViewBodyState extends State<DownlaodsViewBody> {
+  String? sessionID;
   @override
-  void setState(VoidCallback fn) {
+  void initState() {
     getSession();
-    super.setState(fn);
+    super.initState();
   }
 
   @override
@@ -34,7 +35,7 @@ class _DownlaodsViewBodyState extends State<DownlaodsViewBody> {
           child: Column(
             children: const [
               Text(
-                'Downloads',
+                'DownLoads',
                 style: Styles.textStyle34,
               )
             ],
@@ -46,10 +47,11 @@ class _DownlaodsViewBodyState extends State<DownlaodsViewBody> {
 
   getSession() async {
     final db = FirebaseFirestore.instance;
-    db.collection('User').doc(kEmail).get().then((value) {
+    db.collection('User').doc('marwanhaker@gmail.com').get().then((value) {
       final data = value.data() as Map<String, dynamic>;
-      print(data);
-      return data;
+
+      sessionID = data['Session_ID'];
+      return data['Session_ID'];
     });
   }
 }
