@@ -213,7 +213,7 @@ class HomeRepoImpl extends HomeRepo {
       );
       List<MovieByActorModel> movies = [];
 
-      for (var item in data['cast']) {
+      for (var item in data['results']) {
         movies.add(MovieByActorModel.fromJson(item));
       }
 

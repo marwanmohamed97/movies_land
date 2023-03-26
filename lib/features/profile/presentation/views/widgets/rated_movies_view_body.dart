@@ -27,10 +27,6 @@ class RatedMoviesViewBody extends StatefulWidget {
 }
 
 class _RatedMoviesViewBodyState extends State<RatedMoviesViewBody> {
-  final CollectionReference _collectionRef =
-      FirebaseFirestore.instance.collection(kEmail!);
-
-  final ref = FirebaseFirestore.instance.collection(kEmail!).snapshots();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,89 +63,82 @@ class RatedMovies extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      physics: const BouncingScrollPhysics(),
       itemCount: movies.length,
       itemBuilder: (context, index) {
-        return ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: movies.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                GoRouter.of(context)
-                    .push(AppRouter.movieDetailsView, extra: movies[index].id);
-              },
-              child: Container(
-                color: Colors.black,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 150,
-                    child: Row(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: AspectRatio(
-                              aspectRatio: 2.6 / 3,
-                              child: CachedNetworkImage(
-                                imageUrl: imageUrlMaker(
-                                    imageUrl: movies[index].posterPath),
-                                fit: BoxFit.fill,
-                              )),
-                        ),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                movies[index].title ?? '',
-                                style: Styles.textStyle16.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                                softWrap: true,
-                                maxLines: 2,
-                              ),
-                              const SizedBox(
-                                height: 4,
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                movies[index].overview ?? '',
-                                style: Styles.textStyle14.copyWith(
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.white.withOpacity(.87)),
-                                overflow: TextOverflow.ellipsis,
-                                softWrap: true,
-                                maxLines: 4,
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              const Text(
-                                'Download and watch offline',
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: kPrimaryColor,
-                                    fontWeight: FontWeight.w400),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
+        return GestureDetector(
+          onTap: () {
+            GoRouter.of(context)
+                .push(AppRouter.movieDetailsView, extra: movies[index].id);
+          },
+          child: Container(
+            color: Colors.black,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
+              child: SizedBox(
+                width: double.infinity,
+                height: 150,
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: AspectRatio(
+                          aspectRatio: 2.6 / 3,
+                          child: CachedNetworkImage(
+                            imageUrl: imageUrlMaker(
+                                imageUrl: movies[index].posterPath),
+                            fit: BoxFit.fill,
+                          )),
                     ),
-                  ),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            movies[index].title ?? '',
+                            style: Styles.textStyle16.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: true,
+                            maxLines: 2,
+                          ),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            movies[index].overview ?? '',
+                            style: Styles.textStyle14.copyWith(
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white.withOpacity(.87)),
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: true,
+                            maxLines: 4,
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          const Text(
+                            'Download and watch offline',
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: kPrimaryColor,
+                                fontWeight: FontWeight.w400),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ),
-            );
-          },
+            ),
+          ),
         );
       },
     );
