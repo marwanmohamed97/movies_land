@@ -203,19 +203,26 @@ class HomeRepoImpl extends HomeRepo {
     }
   }
 
-  // @override
-  // Future<Either<Failure, String>> createGuestSessionID() async {
+  @override
+  Future<Either<Failure, List<MovieByActorModel>>> fetchRatedMovies(
+      {required String ratedMovies}) async {
+    try {
+      var data = await apiService.get(
+        endPoint:
+            'guest_session/$ratedMovies/rated/movies?api_key=$apiKey&language=en-US&sort_by=created_at.asc',
+      );
+      List<MovieByActorModel> movies = [];
 
-  //  final url = Uri.https('api.themoviedb.org', '/3/authentication/guest_session/new', {'api_key': apiKey});
-  // final headers = {'Content-Type': 'application/json;charset=utf-8'};
+      for (var item in data['cast']) {
+        movies.add(MovieByActorModel.fromJson(item));
+      }
 
-  // final response = await http.get(url, headers: headers);
-
-  // if (response.statusCode == 200) {
-  //   final jsonBody = json.decode(response.body);
-  //   return jsonBody['guest_session_id'];
-  // } else {
-  //   throw Exception('Failed to create guest session ID.');
-  // }
-  // }
+      return Right(movies);
+    } catch (e) {
+      if (e is DioError) {
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

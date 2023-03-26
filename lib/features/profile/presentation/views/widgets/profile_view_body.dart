@@ -58,17 +58,25 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                     child: Column(
                       children: [
                         Row(
-                          children: const [
-                            Icon(
+                          children: [
+                            const Icon(
                               Icons.paid,
                               size: 24,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 40,
                             ),
-                            Text(
-                              'My Plan',
-                              style: Styles.textStyle16,
+                            GestureDetector(
+                              onTap: () {
+                                if (kSessionID != null) {
+                                  GoRouter.of(context)
+                                      .push(AppRouter.ratedMovies);
+                                }
+                              },
+                              child: const Text(
+                                'Rated Movies',
+                                style: Styles.textStyle16,
+                              ),
                             ),
                           ],
                         ),

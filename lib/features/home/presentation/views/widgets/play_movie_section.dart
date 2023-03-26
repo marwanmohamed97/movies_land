@@ -34,29 +34,15 @@ class _PlayMovieSectionState extends State<PlayMovieSection> {
   @override
   void initState() {
     super.initState();
-    getFavorate();
     checkIfUserLogedIn();
-  }
-
-  String? favorate;
-  getFavorate() async {
-    print('get favorate run');
-    final db = FirebaseFirestore.instance;
-    db.collection(kEmail!).doc(widget.movie.title).get().then((value) {
-      final data = value.data() as Map<String, dynamic>;
-      setState(() {
-        favorate = data['movie_name'];
-      });
-      print(favorate);
-    });
   }
 
   Future<void> checkIfUserLogedIn() async {
     if (kEmail != null) {
-      if (favorate != null) {
-        isfavorite = true;
-      } else {
+      if (isfavorite) {
         isfavorite = false;
+      } else {
+        isfavorite = true;
       }
     }
   }
@@ -89,37 +75,16 @@ class _PlayMovieSectionState extends State<PlayMovieSection> {
             onPressed: () async {
               if (kEmail != null) {
                 if (isfavorite) {
-                  var doc = await db
-                      .collection(kEmail!)
-                      .doc(widget.movie.title)
-                      .get();
-                  if (doc.exists) {
-                    db.collection(kEmail!).doc(widget.movie.title).update({
-                      'movie_ID': FieldValue.delete(),
-                      'movie_name': FieldValue.delete(),
-                    });
-                  }
-                  getFavorate();
-                  checkIfUserLogedIn();
+                  db.collection(kEmail!).doc(widget.movie.title).delete();
 
+                  checkIfUserLogedIn();
                   isfavorite = !isfavorite;
                 } else {
-                  var doc = await db
-                      .collection(kEmail!)
-                      .doc(widget.movie.title)
-                      .get();
-                  if (doc.exists) {
-                    db.collection(kEmail!).doc(widget.movie.title).update({
-                      'movie_ID': widget.movie.id,
-                      'movie_name': widget.movie.title,
-                    });
-                  } else {
-                    db.collection(kEmail!).doc(widget.movie.title).set({
-                      'movie_ID': widget.movie.id,
-                      'movie_name': widget.movie.title,
-                    });
-                  }
-                  getFavorate();
+                  db.collection(kEmail!).doc(widget.movie.title).set({
+                    'movie_ID': widget.movie.id,
+                    'movie_name': widget.movie.title,
+                  });
+
                   checkIfUserLogedIn();
 
                   isfavorite = !isfavorite;
@@ -212,23 +177,32 @@ class _PlayMovieSectionState extends State<PlayMovieSection> {
                         } else {
                           rateMovie(widget.movie.id!, rating, kSessionID!);
                           final user =
-                              FirebaseFirestore.instance.collection(kEmail!);
+                              FirebaseFirestore.instance.collection('Ratings');
                           FirebaseFirestore.instance
-                              .collection(kEmail!)
-                              .doc(widget.movie.title)
+                              .collection('Ratings')
+                              .doc(kEmail)
                               .get()
                               .then((DocumentSnapshot documentSnapshot) {
                             if (documentSnapshot.exists) {
-                              user.doc(widget.movie.title).update({
-                                'Rating': rating,
+                              user.doc(kEmail).update({
+                                widget.movie.title!: {
+                                  'Movie_name': widget.movie.title,
+                                  'Movie_ID': widget.movie.id,
+                                  'Rate': rating
+                                }
                               });
                             } else {
-                              user.doc(widget.movie.title).set({
-                                'Rating': rating,
+                              user.doc(kEmail).set({
+                                widget.movie.title!: {
+                                  'Movie_name': widget.movie.title,
+                                  'Movie_ID': widget.movie.id,
+                                  'Rate': rating
+                                }
                               });
                             }
                           });
                         }
+
                         Navigator.of(context).pop();
                       },
                       child: Text(

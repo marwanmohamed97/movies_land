@@ -12,6 +12,8 @@ abstract class HomeRepo {
   Future<Either<Failure, List<MoviesLandModel>>> fetchNowPlayingMovies();
   Future<Either<Failure, List<MoviesLandModel>>> fetchSearchMovie(
       {required String movieName});
+  Future<Either<Failure, List<MovieByActorModel>>> fetchRatedMovies(
+      {required String ratedMovies});
   Future<Either<Failure, List<MovieDetailModel>>> fetchMovieDetails(
       {required int movieId});
   Future<Either<Failure, List<MovieTrailerModel>>> fetchMovieTrailer(

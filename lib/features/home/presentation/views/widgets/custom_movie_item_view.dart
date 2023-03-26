@@ -8,12 +8,13 @@ import 'package:movies_land/features/home/presentation/views/widgets/movie_detai
 import '../../../../../core/ulits/app_router.dart';
 
 class CustomMovieItemView extends StatelessWidget {
-  const CustomMovieItemView({
-    super.key,
-    required this.movies,
-  });
+  const CustomMovieItemView(
+      {super.key,
+      required this.movies,
+      this.scrollDirection = Axis.horizontal});
 
   final List<MoviesLandModel> movies;
+  final Axis scrollDirection;
   @override
   Widget build(BuildContext context) {
     return SizedBox(

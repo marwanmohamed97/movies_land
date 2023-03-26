@@ -45,8 +45,10 @@ class _FavoritesViewBodyState extends State<FavoritesViewBody> {
             physics: const BouncingScrollPhysics(),
             itemCount: documents.length,
             itemBuilder: (context, index) {
-              final document = documents[index];
-              final data = document.data() as Map<String, dynamic>;
+              final document = documents[index].data();
+
+              final data = document as Map<String, dynamic>;
+
               return BlocProvider(
                 create: (context) =>
                     MoviesDetailsCubit(getIt.get<HomeRepoImpl>())
