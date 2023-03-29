@@ -10,7 +10,6 @@ class MovieTrailerCubit extends Cubit<MovieTrailerState> {
   final HomeRepo homeRepo;
 
   Future<void> fetchMovieTrailer({required int movieId}) async {
-    emit(MovieTrailerLoading());
     var result = await homeRepo.fetchMovieTrailer(movieId: movieId);
 
     result.fold(

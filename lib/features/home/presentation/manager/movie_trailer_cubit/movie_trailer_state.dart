@@ -9,8 +9,6 @@ abstract class MovieTrailerState extends Equatable {
 
 class MovieTrailerInitial extends MovieTrailerState {}
 
-class MovieTrailerLoading extends MovieTrailerState {}
-
 class MovieTrailerSuccess extends MovieTrailerState {
   final List<MovieTrailerModel> movie;
 

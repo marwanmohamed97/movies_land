@@ -12,7 +12,9 @@ abstract class HomeRepo {
   Future<Either<Failure, List<MoviesLandModel>>> fetchNowPlayingMovies();
   Future<Either<Failure, List<MoviesLandModel>>> fetchSearchMovie(
       {required String movieName});
-  Future<Either<Failure, List<MovieByActorModel>>> fetchRatedMovies(
+  Future<Either<Failure, double>> fetchRatedMovies(
+      {required String ratedMovies, required int movieID});
+  Future<Either<Failure, List<MovieByActorModel>>> fetchAllRatedMovies(
       {required String ratedMovies});
   Future<Either<Failure, List<MovieDetailModel>>> fetchMovieDetails(
       {required int movieId});
@@ -24,5 +26,6 @@ abstract class HomeRepo {
       {required int movieId});
   Future<Either<Failure, List<MovieByActorModel>>> fetchMovieByActor(
       {required int movieId});
-  // Future<Either<Failure, String>> createGuestSessionID();
+  // Future<Either<Failure, List<MovieDetailModel>>> fetchRatedMovie(
+  //     {required int movieId});
 }

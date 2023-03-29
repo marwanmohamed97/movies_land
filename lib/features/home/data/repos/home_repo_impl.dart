@@ -204,7 +204,32 @@ class HomeRepoImpl extends HomeRepo {
   }
 
   @override
-  Future<Either<Failure, List<MovieByActorModel>>> fetchRatedMovies(
+  Future<Either<Failure, double>> fetchRatedMovies(
+      {required String ratedMovies, required int movieID}) async {
+    try {
+      var data = await apiService.get(
+        endPoint:
+            'guest_session/$ratedMovies/rated/movies?api_key=$apiKey&language=en-US&sort_by=created_at.asc',
+      );
+
+      double? rating;
+      for (var item in data['results']) {
+        if (item['id'] == movieID) {
+          rating = item['rating'] as double;
+        }
+      }
+
+      return Right(rating ?? 0);
+    } catch (e) {
+      if (e is DioError) {
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<MovieByActorModel>>> fetchAllRatedMovies(
       {required String ratedMovies}) async {
     try {
       var data = await apiService.get(

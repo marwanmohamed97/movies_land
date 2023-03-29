@@ -12,11 +12,6 @@ class RatedMoviesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return BlocProvider(
-    //   create: (context) =>
-    //       MoviesLandCubit(getIt.get<HomeRepoImpl>())..fetchTrendingMovies(),
-    //   child: const RatedMoviesViewBody(),
-    // );
     return const RatedMoviesViewBody();
   }
 }

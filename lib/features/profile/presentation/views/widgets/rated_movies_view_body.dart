@@ -37,7 +37,7 @@ class _RatedMoviesViewBodyState extends State<RatedMoviesViewBody> {
       backgroundColor: Colors.black,
       body: BlocProvider(
         create: (context) => MoviesDetailsCubit(getIt.get<HomeRepoImpl>())
-          ..fetchRatedMovies(ratedMovies: kSessionID!),
+          ..fetchRatedMovies(ratedMovies: kSessionID!, movieID: 0),
         child: BlocBuilder<MoviesDetailsCubit, MoviesDetailsState>(
           builder: (context, state) {
             if (state is MoviesDetailsSuccess) {

@@ -23,16 +23,17 @@ class MoviesDetailsCubit extends Cubit<MoviesDetailsState> {
             });
   }
 
-  Future<void> fetchRatedMovies({required String ratedMovies}) async {
+  Future<void> fetchRatedMovies(
+      {required String ratedMovies, required int movieID}) async {
     emit(MoviesDetailsLoading());
-    var result = await homeRepo.fetchRatedMovies(ratedMovies: ratedMovies);
+    var result = await homeRepo.fetchAllRatedMovies(ratedMovies: ratedMovies);
 
     result.fold(
         (failure) => {
               emit(MoviesDetailsFailure(failure.errMessage)),
             },
         (movie) => {
-              emit(MoviesDetailsSuccess(movie)),
+              emit(MoviesDetailsSuccess(movie as List)),
             });
   }
 
