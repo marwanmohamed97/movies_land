@@ -121,7 +121,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                         final user =
                             FirebaseFirestore.instance.collection('User');
                         user.doc(email).set({
-                          'Full_Name': _nameController.text.trim(),
+                          'Full_Name':
+                              _nameController.text.trim().toUpperCase(),
                           'Session_ID': guestSessionId,
                         });
                         Navigator.of(context).pop();

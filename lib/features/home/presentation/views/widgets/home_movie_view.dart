@@ -53,7 +53,7 @@ class HomeMovieView extends StatelessWidget {
                 BlocProvider(
                   create: (context) =>
                       MoviesLandCubit(getIt.get<HomeRepoImpl>())
-                        ..fetchTrendingMovies(),
+                        ..fetchTopRatedMovies(),
                   child: const CustomMovieItem(),
                 ),
                 const SizedBox(
@@ -70,7 +70,7 @@ class HomeMovieView extends StatelessWidget {
                 BlocProvider(
                   create: (context) =>
                       MoviesLandCubit(getIt.get<HomeRepoImpl>())
-                        ..fetchNowPlayingMovies(),
+                        ..fetchTrendingMovies(category: 'now_playing'),
                   child: const CustomMovieItem(),
                 ),
                 const SizedBox(
@@ -87,7 +87,41 @@ class HomeMovieView extends StatelessWidget {
                 BlocProvider(
                   create: (context) =>
                       MoviesLandCubit(getIt.get<HomeRepoImpl>())
-                        ..fetchTopRatedMovies(),
+                        ..fetchTrendingMovies(category: 'top_rated'),
+                  child: const CustomMovieItem(),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                Text(
+                  'popular',
+                  style:
+                      Styles.textStyle16.copyWith(fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                BlocProvider(
+                  create: (context) =>
+                      MoviesLandCubit(getIt.get<HomeRepoImpl>())
+                        ..fetchTrendingMovies(category: 'popular'),
+                  child: const CustomMovieItem(),
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                Text(
+                  'upcoming',
+                  style:
+                      Styles.textStyle16.copyWith(fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                BlocProvider(
+                  create: (context) =>
+                      MoviesLandCubit(getIt.get<HomeRepoImpl>())
+                        ..fetchTrendingMovies(category: 'upcoming'),
                   child: const CustomMovieItem(),
                 ),
               ],

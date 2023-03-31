@@ -32,7 +32,7 @@ class _RatedMoviesViewBodyState extends State<RatedMoviesViewBody> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text('Favorites'),
+        title: const Text('Rated Movies'),
       ),
       backgroundColor: Colors.black,
       body: BlocProvider(

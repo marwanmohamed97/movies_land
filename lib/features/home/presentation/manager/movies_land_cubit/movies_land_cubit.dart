@@ -10,9 +10,9 @@ class MoviesLandCubit extends Cubit<MoviesLandState> {
 
   final HomeRepo homeRepo;
 
-  Future<void> fetchTrendingMovies() async {
+  Future<void> fetchTrendingMovies({required String category}) async {
     emit(MoviesLandLoading());
-    var result = await homeRepo.fetchTrendingMovies();
+    var result = await homeRepo.fetchMoviesCategores(category: category);
 
     result.fold(
         (failure) => {
@@ -36,16 +36,16 @@ class MoviesLandCubit extends Cubit<MoviesLandState> {
             });
   }
 
-  Future<void> fetchNowPlayingMovies() async {
-    emit(MoviesLandLoading());
-    var result = await homeRepo.fetchNowPlayingMovies();
+  // Future<void> fetchNowPlayingMovies() async {
+  //   emit(MoviesLandLoading());
+  //   var result = await homeRepo.fetchNowPlayingMovies();
 
-    result.fold(
-        (failure) => {
-              emit(MoviesLandfailure(failure.errMessage)),
-            },
-        (moviesLandModel) => {
-              emit(MoviesLandSuccess(moviesLandModel)),
-            });
-  }
+  //   result.fold(
+  //       (failure) => {
+  //             emit(MoviesLandfailure(failure.errMessage)),
+  //           },
+  //       (moviesLandModel) => {
+  //             emit(MoviesLandSuccess(moviesLandModel)),
+  //           });
+  // }
 }

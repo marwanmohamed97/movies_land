@@ -17,10 +17,11 @@ class HomeRepoImpl extends HomeRepo {
   final String apiKey = '319b1920e86cdd05a805f90bbf1e21b7';
   HomeRepoImpl(this.apiService);
   @override
-  Future<Either<Failure, List<MoviesLandModel>>> fetchTrendingMovies() async {
+  Future<Either<Failure, List<MoviesLandModel>>> fetchMoviesCategores(
+      {required String category}) async {
     try {
       var data = await apiService.get(
-        endPoint: 'trending/movie/day?api_key=$apiKey',
+        endPoint: 'movie/$category?api_key=$apiKey',
       );
       List<MoviesLandModel> movies = [];
       for (var item in data['results']) {
@@ -39,7 +40,7 @@ class HomeRepoImpl extends HomeRepo {
   Future<Either<Failure, List<MoviesLandModel>>> fetchTopRatedMovies() async {
     try {
       var data = await apiService.get(
-        endPoint: 'movie/top_rated?api_key=$apiKey',
+        endPoint: 'trending/movie/day?api_key=$apiKey',
       );
       List<MoviesLandModel> movies = [];
       for (var item in data['results']) {
@@ -54,24 +55,24 @@ class HomeRepoImpl extends HomeRepo {
     }
   }
 
-  @override
-  Future<Either<Failure, List<MoviesLandModel>>> fetchNowPlayingMovies() async {
-    try {
-      var data = await apiService.get(
-        endPoint: 'movie/now_playing?api_key=$apiKey',
-      );
-      List<MoviesLandModel> movies = [];
-      for (var item in data['results']) {
-        movies.add(MoviesLandModel.fromJson(item));
-      }
-      return Right(movies);
-    } catch (e) {
-      if (e is DioError) {
-        return Left(ServerFailure.fromDioError(e));
-      }
-      return Left(ServerFailure(e.toString()));
-    }
-  }
+  // @override
+  // Future<Either<Failure, List<MoviesLandModel>>> fetchNowPlayingMovies() async {
+  //   try {
+  //     var data = await apiService.get(
+  //       endPoint: 'movie/now_playing?api_key=$apiKey',
+  //     );
+  //     List<MoviesLandModel> movies = [];
+  //     for (var item in data['results']) {
+  //       movies.add(MoviesLandModel.fromJson(item));
+  //     }
+  //     return Right(movies);
+  //   } catch (e) {
+  //     if (e is DioError) {
+  //       return Left(ServerFailure.fromDioError(e));
+  //     }
+  //     return Left(ServerFailure(e.toString()));
+  //   }
+  // }
 
   @override
   Future<Either<Failure, List<MovieDetailModel>>> fetchMovieDetails(

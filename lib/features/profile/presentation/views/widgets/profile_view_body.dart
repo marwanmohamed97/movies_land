@@ -60,7 +60,7 @@ class _ProfileViewBodyState extends State<ProfileViewBody> {
                         Row(
                           children: [
                             const Icon(
-                              Icons.paid,
+                              Icons.star_half_rounded,
                               size: 24,
                             ),
                             const SizedBox(

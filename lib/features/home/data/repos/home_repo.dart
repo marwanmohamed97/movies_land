@@ -7,9 +7,10 @@ import '../../../actors/data/models/movie_by_actor_model.dart';
 import '../models/actor_model.dart';
 
 abstract class HomeRepo {
-  Future<Either<Failure, List<MoviesLandModel>>> fetchTrendingMovies();
+  Future<Either<Failure, List<MoviesLandModel>>> fetchMoviesCategores(
+      {required String category});
   Future<Either<Failure, List<MoviesLandModel>>> fetchTopRatedMovies();
-  Future<Either<Failure, List<MoviesLandModel>>> fetchNowPlayingMovies();
+  // Future<Either<Failure, List<MoviesLandModel>>> fetchNowPlayingMovies();
   Future<Either<Failure, List<MoviesLandModel>>> fetchSearchMovie(
       {required String movieName});
   Future<Either<Failure, double>> fetchRatedMovies(
